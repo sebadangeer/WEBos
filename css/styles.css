@@ -64,52 +64,35 @@ body {
   margin: 0;
 }
 
-/* ==========================================
-   CARRUSEL INFINITO SUPERIOR (PANTALLA COMPLETA)
-   ========================================== */
 .infinite-carousel {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  background-color: #0d0d0d;
-  padding: 20px 0;
-  margin-bottom: 40px;
-  border-top: 1px solid #222;
-  border-bottom: 1px solid #222;
+  width: 100%;
   overflow: hidden;
+  background-color: #080808;
+  padding: 15px 0;
 }
 
 .carousel-track {
   display: flex;
-  align-items: center;
-  gap: 45px;
   width: max-content;
-  animation: scroll-infinite 30s linear infinite;
+  /* 'infinite' asegura que nunca se detenga. Puedes reducir '25s' si quieres mayor velocidad */
+  animation: scrollInfinito 25s linear infinite;
 }
 
 .carousel-track img {
-  height: 90px;
-  width: auto;
+  height: 120px;
+  margin: 0 25px;
+  flex-shrink: 0;
   object-fit: contain;
-  transition: transform 0.3s ease;
 }
 
-.infinite-carousel:hover .carousel-track {
-  animation-play-state: paused;
-}
-
-.carousel-track img:hover {
-  transform: scale(1.15);
-  cursor: pointer;
-  filter: drop-shadow(0 6px 10px rgba(255, 0, 51, 0.5));
-}
-
-@keyframes scroll-infinite {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(calc(-50% - 22.5px)); }
+/* Animación continua en ciclo */
+@keyframes scrollInfinito {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%); /* Se desplaza justo a la mitad y reinicia invisiblemente */
+  }
 }
 
 /* ==========================================
@@ -167,8 +150,8 @@ input[type="radio"] { display: none; }
 }
 
 .slide img {
-  max-width: 190px;  /* Evita que toque las flechas laterales */
-  max-height: 130px; /* Evita que tape los textos inferiores */
+  max-width: 200px;  /* Evita que toque las flechas laterales */
+  max-height: 200px; /* Evita que tape los textos inferiores */
   width: auto;
   height: auto;
   object-fit: contain;
@@ -424,4 +407,17 @@ nav.navbar,
 
 .titulo-tienda {
   margin-bottom: 35px; /* Ajusta este valor si quieres más o menos espacio */
+}
+
+
+
+/* fondo */
+#webgl-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
 }
