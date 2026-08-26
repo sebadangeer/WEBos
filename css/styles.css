@@ -167,8 +167,8 @@ input[type="radio"] { display: none; }
 }
 
 .slide img {
-  max-width: 190px;  /* Evita que toque las flechas laterales */
-  max-height: 130px; /* Evita que tape los textos inferiores */
+  max-width: 200px;  /* Evita que toque las flechas laterales */
+  max-height: 200px; /* Evita que tape los textos inferiores */
   width: auto;
   height: auto;
   object-fit: contain;
@@ -424,4 +424,17 @@ nav.navbar,
 
 .titulo-tienda {
   margin-bottom: 35px; /* Ajusta este valor si quieres más o menos espacio */
+}
+
+
+
+/* fondo */
+#webgl-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
 }
