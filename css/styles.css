@@ -30,3 +30,141 @@
     transform: translateY(-5px);
     border-color: #CE1141;
 }
+
+
+
+
+/* ==========================================
+   CONFIGURACIÓN GENERAL
+   ========================================== */
+body {
+  background-color: #050505;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: white;
+}
+
+.titulo-tienda {
+  text-align: center;
+  padding: 40px 20px 10px;
+}
+
+.titulo-tienda h1 {
+  color: #FF0033;
+  font-style: italic;
+  font-weight: 900;
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+/* ==========================================
+   DISEÑO RESPONSIVO (GRILLA)
+   ========================================== */
+.grid-container {
+  display: grid;
+  /* Esto acomoda las 8 tarjetas solas según el tamaño de la pantalla */
+  grid-template-columns: repeat(auto-fit, minmax(320px, 320px));
+  gap: 40px;
+  justify-content: center;
+  padding: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ==========================================
+   TARJETA PRINCIPAL Y ANIMACIONES
+   ========================================== */
+.card {
+  width: 100%;
+  background-color: #111111;
+  border-radius: 20px;
+  padding: 30px;
+  border: 2px solid #222;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+  transition: transform 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  box-sizing: border-box;
+}
+
+.card:hover { 
+  transform: translateY(-5px); 
+  border-color: #FF0033; 
+}
+
+/* Ocultar los botones de radio (el mecanismo interno) */
+input[type="radio"] { display: none; }
+
+/* ==========================================
+   SLIDER DE IMÁGENES
+   ========================================== */
+.slider {
+  position: relative;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.slide {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.slide img {
+  width: 220px;
+  height: auto;
+  transform: rotate(-15deg);
+}
+
+/* ==========================================
+   FLECHAS DE NAVEGACIÓN
+   ========================================== */
+.nav { position: absolute; top: 50%; transform: translateY(-50%); }
+.nav-left { left: 0px; }
+.nav-right { right: 0px; }
+
+.nav label {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.nav label:hover { background: #FF0033; }
+
+/* ==========================================
+   TEXTOS Y BOTÓN
+   ========================================== */
+.info { display: block; }
+
+.code { color: #888; font-size: 0.8rem; font-weight: bold; display: block; }
+h2 { margin: 5px 0; font-size: 1.6rem; text-transform: uppercase; font-style: italic; font-weight: 900; }
+.price { color: #FF0033; font-weight: bold; font-size: 1.3rem; margin-top: 5px; }
+
+.btn-buy {
+  width: 100%; padding: 15px; background-color: #FF0033; color: white;
+  border: none; border-radius: 25px; font-weight: bold; font-size: 1rem;
+  text-transform: uppercase; cursor: pointer; margin-top: 20px;
+  transition: background-color 0.2s ease-in-out;
+}
+.btn-buy:hover { background-color: #a00d32; }
+
+/* ==========================================
+   LÓGICA UNIVERSAL DE INTERRUPTOR 
+   (Hace funcionar los 8 carruseles a la vez)
+   ========================================== */
+.r-1:checked ~ .slider .img-1 { display: block; opacity: 1; }
+.r-2:checked ~ .slider .img-2 { display: block; opacity: 1; }
+.r-3:checked ~ .slider .img-3 { display: block; opacity: 1; }
+
+.r-1:checked ~ .slider .nav-right .to-2, .r-1:checked ~ .slider .nav-left .to-3 { display: flex; }
+.r-2:checked ~ .slider .nav-right .to-3, .r-2:checked ~ .slider .nav-left .to-1 { display: flex; }
+.r-3:checked ~ .slider .nav-right .to-1, .r-3:checked ~ .slider .nav-left .to-2 { display: flex; }
