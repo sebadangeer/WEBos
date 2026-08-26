@@ -1,52 +1,59 @@
 /* ==========================================
-   ESTILOS URBANOS - TEMA CHICAGO BULLS
+   RESET GENERAL Y BODY
    ========================================== */
-.bg-bulls-dark {
-    background-color: #111111 !important;
+* {
+  box-sizing: border-box;
 }
 
-.text-bulls-red {
-    color: #CE1141 !important;
-}
-
-.btn-bulls {
-    background-color: #CE1141;
-    color: white;
-    border: none;
-    transition: background-color 0.2s ease-in-out;
-}
-
-.btn-bulls:hover {
-    background-color: #a00d32;
-    color: white;
-}
-
-.brand-card {
-    border: 2px solid #222;
-    transition: transform 0.2s ease-in-out, border-color 0.2s ease-in-out;
-}
-
-.brand-card:hover {
-    transform: translateY(-5px);
-    border-color: #CE1141;
-}
-
-
-
-
-/* ==========================================
-   CONFIGURACIÓN GENERAL
-   ========================================== */
 body {
   background-color: #050505;
   margin: 0;
+  padding: 0;
   font-family: Arial, sans-serif;
+  color: rgb(252, 249, 249);
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* ==========================================
+   ESTILOS URBANOS - TEMA CHICAGO BULLS (CONSERVADOS)
+   ========================================== */
+.bg-bulls-dark {
+  background-color: #111111 !important;
+}
+
+.text-bulls-red {
+  color: #CE1141 !important;
+}
+
+.btn-bulls {
+  background-color: #CE1141;
+  color: white;
+  border: none;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-bulls:hover {
+  background-color: #a00d32;
   color: white;
 }
 
+.brand-card {
+  border: 2px solid #222;
+  transition: transform 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.brand-card:hover {
+  transform: translateY(-5px);
+  border-color: #CE1141;
+}
+
+/* ==========================================
+   ENCABEZADO DE LA TIENDA
+   ========================================== */
 .titulo-tienda {
   text-align: center;
-  padding: 40px 20px 10px;
+  padding: 30px 20px 10px;
 }
 
 .titulo-tienda h1 {
@@ -58,29 +65,76 @@ body {
 }
 
 /* ==========================================
-   DISEÑO RESPONSIVO (GRILLA)
+   CARRUSEL INFINITO SUPERIOR (PANTALLA COMPLETA)
+   ========================================== */
+.infinite-carousel {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background-color: #0d0d0d;
+  padding: 20px 0;
+  margin-bottom: 40px;
+  border-top: 1px solid #222;
+  border-bottom: 1px solid #222;
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  align-items: center;
+  gap: 45px;
+  width: max-content;
+  animation: scroll-infinite 30s linear infinite;
+}
+
+.carousel-track img {
+  height: 90px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.infinite-carousel:hover .carousel-track {
+  animation-play-state: paused;
+}
+
+.carousel-track img:hover {
+  transform: scale(1.15);
+  cursor: pointer;
+  filter: drop-shadow(0 6px 10px rgba(255, 0, 51, 0.5));
+}
+
+@keyframes scroll-infinite {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-50% - 22.5px)); }
+}
+
+/* ==========================================
+   GRILLA DE TARJETAS
    ========================================== */
 .grid-container {
   display: grid;
-  /* Esto acomoda las 8 tarjetas solas según el tamaño de la pantalla */
-  grid-template-columns: repeat(auto-fit, minmax(320px, 320px));
-  gap: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
+  gap: 35px;
   justify-content: center;
-  padding: 40px;
+  padding: 0 20px 50px;
   max-width: 1400px;
   margin: 0 auto;
 }
 
 /* ==========================================
-   TARJETA PRINCIPAL Y ANIMACIONES
+   TARJETA Y SLIDER INTERNO
    ========================================== */
 .card {
   width: 100%;
   background-color: #111111;
   border-radius: 20px;
-  padding: 30px;
+  padding: 25px;
   border: 2px solid #222;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
   transition: transform 0.2s ease-in-out, border-color 0.2s ease-in-out;
   box-sizing: border-box;
 }
@@ -90,43 +144,53 @@ body {
   border-color: #FF0033; 
 }
 
-/* Ocultar los botones de radio (el mecanismo interno) */
 input[type="radio"] { display: none; }
 
-/* ==========================================
-   SLIDER DE IMÁGENES
-   ========================================== */
 .slider {
   position: relative;
-  height: 250px;
+  height: 200px;
+  width: 100%;
+  margin-bottom: 15px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  overflow: hidden;
-  margin-bottom: 20px;
+  justify-content: center;
 }
 
 .slide {
   position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   opacity: 0;
   transition: opacity 0.4s ease-in-out;
 }
 
 .slide img {
-  width: 220px;
+  max-width: 190px;  /* Evita que toque las flechas laterales */
+  max-height: 130px; /* Evita que tape los textos inferiores */
+  width: auto;
   height: auto;
-  transform: rotate(-15deg);
+  object-fit: contain;
+  transform: rotate(-12deg);
+  filter: drop-shadow(0px 10px 12px rgba(240, 238, 238, 0.85));
 }
 
 /* ==========================================
    FLECHAS DE NAVEGACIÓN
    ========================================== */
-.nav { position: absolute; top: 50%; transform: translateY(-50%); }
+.nav { 
+  position: absolute; 
+  top: 50%; 
+  transform: translateY(-50%); 
+  z-index: 10;
+}
+
 .nav-left { left: 0px; }
 .nav-right { right: 0px; }
 
 .nav label {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
   color: white;
   border-radius: 50%;
   width: 35px;
@@ -141,30 +205,223 @@ input[type="radio"] { display: none; }
 .nav label:hover { background: #FF0033; }
 
 /* ==========================================
-   TEXTOS Y BOTÓN
+   TEXTOS Y BOTONES
    ========================================== */
 .info { display: block; }
 
-.code { color: #888; font-size: 0.8rem; font-weight: bold; display: block; }
-h2 { margin: 5px 0; font-size: 1.6rem; text-transform: uppercase; font-style: italic; font-weight: 900; }
-.price { color: #FF0033; font-weight: bold; font-size: 1.3rem; margin-top: 5px; }
+/* Cambia #MODEL-R1 a blanco */
+.code { 
+  color: #ffffff !important; 
+  font-size: 0.8rem; 
+  font-weight: bold; 
+  display: block; 
+}
 
+/* Cambia el título (RETRO 1) a blanco */
+h2 { 
+  color: #ffffff !important; 
+  margin: 5px 0; 
+  font-size: 1.5rem; 
+  text-transform: uppercase; 
+  font-style: italic; 
+  font-weight: 900; 
+}
+
+.price { color: #FF0033; font-weight: bold; font-size: 1.3rem; margin-top: 5px; }
 .btn-buy {
-  width: 100%; padding: 15px; background-color: #FF0033; color: white;
-  border: none; border-radius: 25px; font-weight: bold; font-size: 1rem;
-  text-transform: uppercase; cursor: pointer; margin-top: 20px;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  width: 100%; 
+  padding: 14px 0; 
+  background-color: #FF0033; 
+  color: #ffffff !important;
+  border-radius: 25px; 
+  font-weight: bold; 
+  font-size: 0.95rem;
+  text-transform: uppercase; 
+  box-sizing: border-box;
   transition: background-color 0.2s ease-in-out;
 }
-.btn-buy:hover { background-color: #a00d32; }
 
+.btn-buy:hover { 
+  background-color: #a00d32;
+  color: white;              /* Evita cambios de color al pasar el cursor */
+}
 /* ==========================================
-   LÓGICA UNIVERSAL DE INTERRUPTOR 
-   (Hace funcionar los 8 carruseles a la vez)
+   LÓGICA DEL CARRUSEL INTERNO
    ========================================== */
-.r-1:checked ~ .slider .img-1 { display: block; opacity: 1; }
-.r-2:checked ~ .slider .img-2 { display: block; opacity: 1; }
-.r-3:checked ~ .slider .img-3 { display: block; opacity: 1; }
+.r-1:checked ~ .slider .img-1 { opacity: 1; }
+.r-2:checked ~ .slider .img-2 { opacity: 1; }
+.r-3:checked ~ .slider .img-3 { opacity: 1; }
 
 .r-1:checked ~ .slider .nav-right .to-2, .r-1:checked ~ .slider .nav-left .to-3 { display: flex; }
 .r-2:checked ~ .slider .nav-right .to-3, .r-2:checked ~ .slider .nav-left .to-1 { display: flex; }
 .r-3:checked ~ .slider .nav-right .to-1, .r-3:checked ~ .slider .nav-left .to-2 { display: flex; }
+
+
+
+/* ==========================================
+   BARRA DE NAVEGACIÓN (MENÚ BLANCO)
+   ========================================== */
+nav.navbar,
+.bg-body-tertiary {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 10px 20px;
+}
+
+.navbar .navbar-brand,
+.navbar .nav-link {
+  color: #111111 !important;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.navbar .nav-link:hover {
+  color: #CE1141 !important;
+}
+
+/* Control del tamaño e integración del logo */
+.navbar img {
+  height: 55px !important;
+  width: auto !important;
+  object-fit: contain;
+}
+
+/* Asegura alineación horizontal de los enlaces */
+.navbar-collapse {
+  flex-grow: 0;
+}
+
+.navbar-nav {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+
+
+
+
+
+/* ==========================================
+   ESTILOS DE LA PÁGINA DE COMPRA Y TALLAS
+   ========================================== */
+.checkout-container {
+    max-width: 550px;
+    margin: 40px auto;
+    background-color: #111111;
+    padding: 35px;
+    border-radius: 20px;
+    border: 2px solid #222;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+}
+
+.checkout-container h2 {
+    color: #ffffff !important;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"] {
+    width: 100%;
+    padding: 12px 15px;
+    background-color: #050505;
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.form-group input:focus {
+    border-color: #FF0033;
+}
+
+/* Selector de Tallas en Cuadrados */
+.size-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.size-picker input[type="radio"] {
+    display: none !important;
+}
+
+.size-picker label {
+    width: 48px;
+    height: 48px;
+    background-color: #050505;
+    border: 2px solid #333;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 0;
+}
+
+.size-picker label:hover {
+    border-color: #FF0033;
+    color: #FF0033;
+}
+
+.size-picker input[type="radio"]:checked + label {
+    background-color: #FF0033;
+    border-color: #FF0033;
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(255, 0, 51, 0.5);
+}
+
+
+
+
+.btn-back {
+  display: inline-block;
+  background-color: transparent;
+  color: #333333;
+  border: 2px solid #333333;
+  padding: 10px 24px;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-back:hover {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+
+
+.titulo-tienda {
+  margin-bottom: 35px; /* Ajusta este valor si quieres más o menos espacio */
+}
