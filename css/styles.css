@@ -13,11 +13,24 @@ body {
   color: rgb(252, 249, 249);
   overflow-x: hidden;
   width: 100%;
+  min-height: 100vh;
+
+  /* Propiedades de fondo ajustadas para mosaico/patrón */
+  background-image: url('../img/logo/log4k.jpg');
+  background-size: 680px; /* Tamaño del patrón (puedes cambiarlo aquí o desde JS) */
+  background-position: top left;
+  background-repeat: repeat;
+  background-attachment: fixed;
+  transition: background-image 0.6s ease-in-out, background-size 0.3s ease;
 }
 
 /* ==========================================
-   ESTILOS URBANOS - TEMA CHICAGO BULLS (CONSERVADOS)
+   ESTILOS URBANOS - TEMA CHICAGO BULLS
    ========================================== */
+.nav-container {
+  width: 100%;
+}
+
 .bg-bulls-dark {
   background-color: #111111 !important;
 }
@@ -40,7 +53,7 @@ body {
 
 .brand-card {
   border: 2px solid #222;
-  transition: transform 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  transition: transform 0.3s ease, border-color 0.2s ease-in-out;
 }
 
 .brand-card:hover {
@@ -49,11 +62,24 @@ body {
 }
 
 /* ==========================================
-   ENCABEZADO DE LA TIENDA
+   AJUSTE DE IMÁGENES Y LOGOS EN TARJETAS
+   ========================================== */
+.brand-card img {
+  width: 100% !important;
+  height: 350px !important;
+  object-fit: contain !important;    
+  background-color: #ffffff !important;
+  border-radius: 12px !important;    
+  padding: 10px !important;
+}
+
+/* ==========================================
+   ENCABEZADO DE LA TIENDA Y BANNERS
    ========================================== */
 .titulo-tienda {
   text-align: center;
   padding: 30px 20px 10px;
+  margin-bottom: 35px;
 }
 
 .titulo-tienda h1 {
@@ -62,6 +88,20 @@ body {
   font-weight: 900;
   font-size: 2.5rem;
   margin: 0;
+}
+
+.titulo-banner-marcas {
+  display: inline-block;
+  background-color: rgba(17, 17, 17, 0.95);
+  color: #ffffff;
+  padding: 12px 28px;
+  border-radius: 15px;
+  border: 2px solid #222222;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  font-size: 1.8rem;
+  font-weight: bold;
+  font-style: italic;
+  margin-bottom: 2rem;
 }
 
 .infinite-carousel {
@@ -74,7 +114,6 @@ body {
 .carousel-track {
   display: flex;
   width: max-content;
-  /* 'infinite' asegura que nunca se detenga. Puedes reducir '25s' si quieres mayor velocidad */
   animation: scrollInfinito 25s linear infinite;
 }
 
@@ -85,13 +124,12 @@ body {
   object-fit: contain;
 }
 
-/* Animación continua en ciclo */
 @keyframes scrollInfinito {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%); /* Se desplaza justo a la mitad y reinicia invisiblemente */
+    transform: translateX(-50%);
   }
 }
 
@@ -120,7 +158,6 @@ body {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
   transition: transform 0.2s ease-in-out, border-color 0.2s ease-in-out;
   box-sizing: border-box;
-  /* Mantiene todas las tarjetas con la misma estructura vertical */
   display: flex;
   flex-direction: column;
 }
@@ -153,8 +190,8 @@ input[type="radio"] { display: none; }
 }
 
 .slide img {
-  max-width: 200px;  /* Evita que toque las flechas laterales */
-  max-height: 200px; /* Evita que tape los textos inferiores */
+  max-width: 200px;
+  max-height: 200px;
   width: auto;
   height: auto;
   object-fit: contain;
@@ -196,7 +233,7 @@ input[type="radio"] { display: none; }
 .info { 
   display: flex;
   flex-direction: column;
-  flex-grow: 1; /* Ocupa el espacio disponible para empujar el botón al fondo */
+  flex-grow: 1;
 }
 
 .code { 
@@ -213,7 +250,6 @@ h2 {
   text-transform: uppercase; 
   font-style: italic; 
   font-weight: 900; 
-  /* Fuerza a que todos los títulos reserven el espacio de 2 líneas */
   min-height: 2.8rem; 
   line-height: 1.2;
   display: flex;
@@ -224,7 +260,7 @@ h2 {
   color: #FF0033; 
   font-weight: bold; 
   font-size: 1.3rem; 
-  margin-top: auto; /* Empuja el precio y el botón hacia abajo */
+  margin-top: auto;
   margin-bottom: 15px;
 }
 
@@ -243,10 +279,12 @@ h2 {
   box-sizing: border-box;
   transition: background-color 0.2s ease-in-out;
 }
+
 .btn-buy:hover { 
   background-color: #a00d32;
-  color: white;              /* Evita cambios de color al pasar el cursor */
+  color: white;
 }
+
 /* ==========================================
    LÓGICA DEL CARRUSEL INTERNO
    ========================================== */
@@ -257,8 +295,6 @@ h2 {
 .r-1:checked ~ .slider .nav-right .to-2, .r-1:checked ~ .slider .nav-left .to-3 { display: flex; }
 .r-2:checked ~ .slider .nav-right .to-3, .r-2:checked ~ .slider .nav-left .to-1 { display: flex; }
 .r-3:checked ~ .slider .nav-right .to-1, .r-3:checked ~ .slider .nav-left .to-2 { display: flex; }
-
-
 
 /* ==========================================
    BARRA DE NAVEGACIÓN (MENÚ BLANCO)
@@ -281,14 +317,12 @@ nav.navbar,
   color: #CE1141 !important;
 }
 
-/* Control del tamaño e integración del logo */
 .navbar img {
   height: 55px !important;
   width: auto !important;
   object-fit: contain;
 }
 
-/* Asegura alineación horizontal de los enlaces */
 .navbar-collapse {
   flex-grow: 0;
 }
@@ -302,103 +336,94 @@ nav.navbar,
   list-style: none;
 }
 
-
-
-
-
-
 /* ==========================================
    ESTILOS DE LA PÁGINA DE COMPRA Y TALLAS
    ========================================== */
 .checkout-container {
-    max-width: 550px;
-    margin: 40px auto;
-    background-color: #111111;
-    padding: 35px;
-    border-radius: 20px;
-    border: 2px solid #222;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+  max-width: 550px;
+  margin: 40px auto;
+  background-color: #111111;
+  padding: 35px;
+  border-radius: 20px;
+  border: 2px solid #222;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
 }
 
 .checkout-container h2 {
-    color: #ffffff !important;
-    text-align: center;
-    margin-bottom: 25px;
+  color: #ffffff !important;
+  text-align: center;
+  margin-bottom: 25px;
 }
 
 .form-group {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .form-group label {
-    display: block;
-    color: #ffffff;
-    font-weight: bold;
-    font-size: 0.9rem;
-    margin-bottom: 8px;
-    text-transform: uppercase;
+  display: block;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  text-transform: uppercase;
 }
 
 .form-group input[type="text"],
 .form-group input[type="email"],
 .form-group input[type="tel"] {
-    width: 100%;
-    padding: 12px 15px;
-    background-color: #050505;
-    border: 1px solid #333;
-    border-radius: 8px;
-    color: #ffffff;
-    font-size: 1rem;
-    outline: none;
-    transition: border-color 0.2s ease;
+  width: 100%;
+  padding: 12px 15px;
+  background-color: #050505;
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease;
 }
 
 .form-group input:focus {
-    border-color: #FF0033;
+  border-color: #FF0033;
 }
 
-/* Selector de Tallas en Cuadrados */
 .size-picker {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .size-picker input[type="radio"] {
-    display: none !important;
+  display: none !important;
 }
 
 .size-picker label {
-    width: 48px;
-    height: 48px;
-    background-color: #050505;
-    border: 2px solid #333;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 0.95rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    margin: 0;
+  width: 48px;
+  height: 48px;
+  background-color: #050505;
+  border: 2px solid #333;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 0;
 }
 
 .size-picker label:hover {
-    border-color: #FF0033;
-    color: #FF0033;
+  border-color: #FF0033;
+  color: #FF0033;
 }
 
 .size-picker input[type="radio"]:checked + label {
-    background-color: #FF0033;
-    border-color: #FF0033;
-    color: #ffffff;
-    box-shadow: 0 0 10px rgba(255, 0, 51, 0.5);
+  background-color: #FF0033;
+  border-color: #FF0033;
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(255, 0, 51, 0.5);
 }
-
-
-
 
 .btn-back {
   display: inline-block;
@@ -419,15 +444,9 @@ nav.navbar,
   color: #ffffff;
 }
 
-
-
-.titulo-tienda {
-  margin-bottom: 35px; /* Ajusta este valor si quieres más o menos espacio */
-}
-
-
-
-/* fondo */
+/* ==========================================
+   CANVAS DE FONDO
+   ========================================== */
 #webgl-canvas {
   position: fixed;
   top: 0;
