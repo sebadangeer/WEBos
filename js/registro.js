@@ -1,82 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro - Sneakers Store</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/registro.css">
-</head>
-<body>
-
-    <div class="main-wrapper">
-        <div class="custom-card">
-            
-            <h2 class="form-title">REGISTRO DE USUARIO</h2>
-
-            <form id="form-registro">
-                
-                <div class="field-group">
-                    <label for="nombre">NOMBRE COMPLETO</label>
-                    <input type="text" id="nombre" class="custom-input" placeholder="Ej. Juan Pérez" required>
-                </div>
-
-                <div class="field-group">
-                    <label for="correo">CORREO</label>
-                    <input type="email" id="correo" class="custom-input" placeholder="usuario@dominio.com" required>
-                </div>
-
-                <div class="field-group">
-                    <label for="confirmar-correo">CONFIRMAR CORREO</label>
-                    <input type="email" id="confirmar-correo" class="custom-input" placeholder="Reingresa tu correo" required>
-                </div>
-
-                <div class="field-group">
-                    <label for="password">CONTRASEÑA</label>
-                    <input type="password" id="password" class="custom-input" placeholder="••••••••" required>
-                </div>
-
-                <div class="field-group">
-                    <label for="confirmar-password">CONFIRMAR CONTRASEÑA</label>
-                    <input type="password" id="confirmar-password" class="custom-input" placeholder="••••••••" required>
-                </div>
-
-                <div class="field-group">
-                    <label for="telefono">TELÉFONO (opcional)</label>
-                    <input type="tel" id="telefono" class="custom-input" placeholder="+56 9 1234 5678">
-                </div>
-
-                <!-- SELECTS PERSONALIZADOS REGIÓN Y COMUNA -->
-                <div class="row-selects">
-                    <div class="select-box">
-                        <div class="custom-select-wrapper">
-                            <button type="button" class="btn-red-select" id="btn-region">-- Seleccione la región --</button>
-                            <div class="custom-options-menu" id="menu-region"></div>
-                            <input type="hidden" id="region" name="region" required>
-                        </div>
-                    </div>
-
-                    <div class="select-box">
-                        <div class="custom-select-wrapper">
-                            <button type="button" class="btn-red-select" id="btn-comuna" disabled>-- Seleccione la comuna --</button>
-                            <div class="custom-options-menu" id="menu-comuna"></div>
-                            <input type="hidden" id="comuna" name="comuna" required>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- BOTÓN REGISTRAR ROJO -->
-                <div class="text-center mt-4">
-                    <button type="submit" class="btn-red-submit">REGISTRAR</button>
-                    <!-- BOTÓN VOLVER ATRÁS -->
-                    <a href="acceso.html" class="btn-back">← VOLVER ATRÁS</a>
-                </div>
-
-            </form>
-        </div>
-    </div>
-
-    <script>
         const regionesData = [
             { id: "arica", nombre: "Región de Arica y Parinacota" },
             { id: "tarapaca", nombre: "Región de Tarapacá" },
@@ -180,78 +101,67 @@
         });
 
         document.getElementById('form-registro').addEventListener('submit', async (e) => {
-            e.preventDefault();
+    e.preventDefault();
 
-            // Captura de datos desde el formulario
-            const nombreCompleto = document.getElementById('nombre').value.trim();
-            const correo = document.getElementById('correo').value.trim();
-            const confirmarCorreo = document.getElementById('confirmar-correo').value.trim();
-            const password = document.getElementById('password').value;
-            const confirmarPassword = document.getElementById('confirmar-password').value;
-            const telefono = document.getElementById('telefono').value.trim();
-            const region = document.getElementById('region').value;
-            const comuna = document.getElementById('comuna').value;
+    // Captura de datos desde el formulario
+    const nombreCompleto = document.getElementById('nombre').value.trim();
+    const correo = document.getElementById('correo').value.trim();
+    const confirmarCorreo = document.getElementById('confirmar-correo').value.trim();
+    const password = document.getElementById('password').value;
+    const confirmarPassword = document.getElementById('confirmar-password').value;
+    const telefono = document.getElementById('telefono').value.trim();
+    const region = document.getElementById('region').value;
+    const comuna = document.getElementById('comuna').value;
 
-            // Validación de dominios permitidos
-            const dominiosPermitidos = /^[a-zA-Z0-9._%+-]+@(gmail\.com|duocuc\.cl|profesorduoc\.cl)$/i;
+    // Validaciones en el cliente
+    if (correo !== confirmarCorreo) {
+        alert('Los correos electrónicos no coinciden.');
+        return;
+    }
 
-            if (!dominiosPermitidos.test(correo)) {
-                alert('El correo debe pertenecer a uno de los siguientes dominios: @gmail.com, @duocuc.cl o @profesorduoc.cl');
-                return;
-            }
+    if (password !== confirmarPassword) {
+        alert('Las contraseñas no coinciden.');
+        return;
+    }
 
-            // Validaciones en el cliente
-            if (correo !== confirmarCorreo) {
-                alert('Los correos electrónicos no coinciden.');
-                return;
-            }
+    if (password.length > 10) {
+        alert('La contraseña no puede exceder los 10 caracteres.');
+        return;
+    }
 
-            if (password !== confirmarPassword) {
-                alert('Las contraseñas no coinciden.');
-                return;
-            }
+    if (!region || !comuna) {
+        alert('Debes seleccionar una región y una comuna.');
+        return;
+    }
 
-            if (password.length > 10) {
-                alert('La contraseña no puede exceder los 10 caracteres.');
-                return;
-            }
+    // Estructura adaptada al modelo Java (Cliente)
+    const nuevoCliente = {
+        pnombre: nombreCompleto,
+        email: correo,
+        contrasena: password,
+        numero: telefono,
+        region: region,
+        comuna: comuna
+    };
 
-            if (!region || !comuna) {
-                alert('Debes seleccionar una región y una comuna.');
-                return;
-            }
-
-            // Estructura adaptada al modelo Java (Cliente)
-            const nuevoCliente = {
-                pnombre: nombreCompleto,
-                email: correo,
-                contrasena: password,
-                numero: telefono,
-                region: region,
-                comuna: comuna
-            };
-
-            try {
-                const response = await fetch('http://localhost:8080/api/clientes', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(nuevoCliente)
-                });
-
-                if (response.ok) {
-                    alert('¡Registro exitoso! Redirigiendo al inicio de sesión...');
-                    window.location.href = 'login.html';
-                } else {
-                    const errorMsg = await response.text();
-                    alert('Error al registrar el cliente: ' + errorMsg);
-                }
-            } catch (error) {
-                console.error('Error de red/servidor:', error);
-                alert('Ocurrió un error al conectar con el servidor.');
-            }
+    try {
+        const response = await fetch('http://localhost:8080/api/clientes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(nuevoCliente)
         });
-    </script>
-</body>
-</html>
+
+        if (response.ok) {
+            alert('¡Registro exitoso! Redirigiendo al inicio de sesión...');
+            window.location.href = 'login.html';
+        } else {
+            const errorMsg = await response.text();
+            alert('Error al registrar el cliente: ' + errorMsg);
+        }
+    } catch (error) {
+        console.error('Error de red/servidor:', error);
+        alert('Ocurrió un error al conectar con el servidor.');
+    }
+});
