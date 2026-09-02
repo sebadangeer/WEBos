@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Sneakers Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/registro.css">
+</head>
+<body>
+
+    <div class="main-wrapper">
+        <div class="custom-card">
+            
+            <h2 class="form-title">REGISTRO DE USUARIO</h2>
+
+            <form id="form-registro">
+                
+                <div class="field-group">
+                    <label for="nombre">NOMBRE COMPLETO</label>
+                    <input type="text" id="nombre" class="custom-input" placeholder="Ej. Juan Pérez" required>
+                </div>
+
+                <div class="field-group">
+                    <label for="correo">CORREO</label>
+                    <input type="email" id="correo" class="custom-input" placeholder="usuario@dominio.com" required>
+                </div>
+
+                <div class="field-group">
+                    <label for="confirmar-correo">CONFIRMAR CORREO</label>
+                    <input type="email" id="confirmar-correo" class="custom-input" placeholder="Reingresa tu correo" required>
+                </div>
+
+                <div class="field-group">
+                    <label for="password">CONTRASEÑA</label>
+                    <input type="password" id="password" class="custom-input" placeholder="••••••••" required>
+                </div>
+
+                <div class="field-group">
+                    <label for="confirmar-password">CONFIRMAR CONTRASEÑA</label>
+                    <input type="password" id="confirmar-password" class="custom-input" placeholder="••••••••" required>
+                </div>
+
+                <div class="field-group">
+                    <label for="telefono">TELÉFONO (opcional)</label>
+                    <input type="tel" id="telefono" class="custom-input" placeholder="+56 9 1234 5678">
+                </div>
+
+                <!-- SELECTS PERSONALIZADOS REGIÓN Y COMUNA -->
+                <div class="row-selects">
+                    <div class="select-box">
+                        <div class="custom-select-wrapper">
+                            <button type="button" class="btn-red-select" id="btn-region">-- Seleccione la región --</button>
+                            <div class="custom-options-menu" id="menu-region"></div>
+                            <input type="hidden" id="region" name="region" required>
+                        </div>
+                    </div>
+
+                    <div class="select-box">
+                        <div class="custom-select-wrapper">
+                            <button type="button" class="btn-red-select" id="btn-comuna" disabled>-- Seleccione la comuna --</button>
+                            <div class="custom-options-menu" id="menu-comuna"></div>
+                            <input type="hidden" id="comuna" name="comuna" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BOTÓN REGISTRAR ROJO -->
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn-red-submit">REGISTRAR</button>
+                    <!-- BOTÓN VOLVER ATRÁS -->
+                    <a href="acceso.html" class="btn-back">← VOLVER ATRÁS</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE CONTROL Y COMUNAS DE CHILE -->
+    <script>
+        const regionesData = [
+            { id: "arica", nombre: "Región de Arica y Parinacota" },
+            { id: "tarapaca", nombre: "Región de Tarapacá" },
+            { id: "antofagasta", nombre: "Región de Antofagasta" },
+            { id: "atacama", nombre: "Región de Atacama" },
+            { id: "coquimbo", nombre: "Región de Coquimbo" },
+            { id: "valparaiso", nombre: "Región de Valparaíso" },
+            { id: "rm", nombre: "Región Metropolitana de Santiago" },
+            { id: "ohiggins", nombre: "Región del Libertador Gral. Bernardo O'Higgins" },
+            { id: "maule", nombre: "Región del Maule" },
+            { id: "nuble", nombre: "Región de Ñuble" },
+            { id: "biobio", nombre: "Región del Biobío" },
+            { id: "araucania", nombre: "Región de la Araucanía" },
+            { id: "rios", nombre: "Región de Los Ríos" },
+            { id: "lagos", nombre: "Región de Los Lagos" },
+            { id: "aysen", nombre: "Región de Aysén del G. Carlos Ibáñez del Campo" },
+            { id: "magallanes", nombre: "Región de Magallanes y de la Antártica Chilena" }
+        ];
+
+        const comunasPorRegion = {
+            arica: ["Arica", "Camarones", "Putre", "General Lagos"],
+            tarapaca: ["Iquique", "Alto Hospicio", "Pozo Almonte", "Camiña", "Colchane", "Huara", "Pica"],
+            antofagasta: ["Antofagasta", "Mejillones", "Sierra Gorda", "Taltal", "Calama", "Ollagüe", "San Pedro de Atacama", "Tocopilla", "María Elena"],
+            atacama: ["Copiapó", "Caldera", "Tierra Amarilla", "Vallenar", "Alto del Carmen", "Freirina", "Huasco", "Chañaral", "Diego de Almagro"],
+            coquimbo: ["La Serena", "Coquimbo", "Andacollo", "La Higuera", "Paiguano", "Vicuña", "Illapel", "Canela", "Los Vilos", "Salamanca", "Ovalle", "Combarbalá", "Monte Patria", "Punitaqui", "Río Hurtado"],
+            valparaiso: ["Valparaíso", "Casablanca", "Concón", "Juan Fernández", "Puchuncaví", "Quintero", "Viña del Mar", "Isla de Pascua", "Los Andes", "Calle Larga", "Rinconada", "San Esteban", "La Ligua", "Cabildo", "Papudo", "Petorca", "Zapallar", "Quillota", "Calera", "Hijuelas", "La Cruz", "Nogales", "San Antonio", "Algarrobo", "El Quisco", "El Tabo", "Cartagena", "Santo Domingo", "San Felipe", "Catemu", "Llaillay", "Panquehue", "Putaendo", "Santa María", "Quilpué", "Limache", "Olmué", "Villa Alemana"],
+            rm: ["Santiago", "Cerrillos", "Cerro Navia", "Conchalí", "El Bosque", "Estación Central", "Huechuraba", "Independencia", "La Cisterna", "La Florida", "La Granja", "La Pintana", "La Reina", "Las Condes", "Lo Barnechea", "Lo Espejo", "Lo Prado", "Macul", "Maipú", "Ñuñoa", "Pedro Aguirre Cerda", "Peñalolén", "Providencia", "Pudahuel", "Quilicura", "Quinta Normal", "Recoleta", "Renca", "San Joaquín", "San Miguel", "San Ramón", "Vitacura", "Puente Alto", "Pirque", "San José de Maipo", "Colina", "Lampa", "Tiltil", "San Bernardo", "Buin", "Calera de Tango", "Paine", "Melipilla", "Alhué", "Curacaví", "María Pinto", "San Pedro", "Talagante", "El Monte", "Isla de Maipo", "Padre Hurtado", "Peñaflor"],
+            ohiggins: ["Rancagua", "Codegua", "Coinco", "Coltauco", "Doñihue", "Graneros", "Las Cabras", "Machalí", "Malloa", "Mostazal", "Olivar", "Peumo", "Pichidegua", "Quinta de Tilcoco", "Rengo", "Requínoa", "San Vicente", "Pichilemu", "La Estrella", "Litueche", "Marchihue", "Navidad", "Paredones", "San Fernando", "Chépica", "Chimbarongo", "Lolol", "Nancagua", "Palmilla", "Peralillo", "Placilla", "Pumanque", "Santa Cruz"],
+            maule: ["Talca", "Constitución", "Curepto", "Empedrado", "Maule", "Pelarco", "Pencahue", "Río Claro", "San Clemente", "San Rafael", "Cauquenes", "Chanco", "Pelluhue", "Curicó", "Hualañé", "Licantén", "Molina", "Rauco", "Romeral", "Sagrada Familia", "Teno", "Vichuquén", "Linares", "Colbún", "Longaví", "Parral", "Retiro", "San Javier", "Villa Alegre", "Yerbas Buenas"],
+            nuble: ["Chillán", "Bulnes", "Chillán Viejo", "El Carmen", "Pemuco", "Pinto", "Quillón", "San Ignacio", "Yungay", "Quirihue", "Cobquecura", "Coelemu", "Ninhue", "Portezuelo", "Ranquil", "Treguaco", "San Carlos", "Coihueco", "San Fabián", "San Nicolás", "Ñiquén"],
+            biobio: ["Concepción", "Coronel", "Chiguayante", "Florida", "San Pedro de la Paz", "Santa Juana", "Talcahuano", "Tomé", "Hualpén", "Lota", "Penco", "Los Ángeles", "Antuco", "Cabrero", "Laja", "Mulchén", "Nacimiento", "Negrete", "Quilaco", "Quilleco", "San Rosendo", "Santa Bárbara", "Tucapel", "Yumbel", "Alto Biobío", "Lebu", "Arauco", "Cañete", "Contulmo", "Curanilahue", "Los Álamos", "Tirúa"],
+            araucania: ["Temuco", "Carahue", "Cunco", "Curarrehue", "Freire", "Galvarino", "Gorbea", "Lautaro", "Loncoche", "Melipeuco", "Nueva Imperial", "Padre Las Casas", "Perquenco", "Pitrufquén", "Pucón", "Saavedra", "Teodoro Schmidt", "Toltén", "Vilcún", "Villarrica", "Cholchol", "Angol", "Collipulli", "Curacautín", "Ercilla", "Lonquimay", "Los Sauces", "Lumaco", "Purén", "Renaico", "Traiguén", "Victoria"],
+            rios: ["Valdivia", "Corral", "Lanco", "Los Lagos", "Máfil", "Mariquina", "Paillaco", "Panguipulli", "La Unión", "Futrono", "Lago Ranco", "Río Bueno"],
+            lagos: ["Puerto Montt", "Calbuco", "Cochamó", "Fresia", "Frutillar", "Los Muermos", "Llanquihue", "Maullín", "Puerto Varas", "Castro", "Ancud", "Chonchi", "Curaco de Vélez", "Dalcahue", "Puqueldón", "Queilén", "Quellón", "Quemchi", "Quinchao", "Osorno", "Puerto Octay", "Purranque", "Puyehue", "Río Negro", "San Juan de la Costa", "San Pablo", "Chaitén", "Futaleufú", "Hualaihué", "Palena"],
+            aysen: ["Coyhaique", "Lago Verde", "Aysén", "Cisnes", "Guaitecas", "Cochrane", "O'Higgins", "Tortel", "Chile Chico", "Río Ibáñez"],
+            magallanes: ["Punta Arenas", "Laguna Blanca", "Río Verde", "San Gregorio", "Cabo de Hornos", "Antártica", "Porvenir", "Primavera", "Timaukel", "Natales", "Torres del Paine"]
+        };
+
+        const btnRegion = document.getElementById('btn-region');
+        const menuRegion = document.getElementById('menu-region');
+        const inputRegion = document.getElementById('region');
+
+        const btnComuna = document.getElementById('btn-comuna');
+        const menuComuna = document.getElementById('menu-comuna');
+        const inputComuna = document.getElementById('comuna');
+
+        // Cargar Regiones
+        regionesData.forEach(r => {
+            const item = document.createElement('div');
+            item.className = 'custom-option';
+            item.textContent = r.nombre;
+            item.addEventListener('click', () => seleccionarRegion(r));
+            menuRegion.appendChild(item);
+        });
+
+        // Abrir/cerrar menú región
+        btnRegion.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menuComuna.classList.remove('show');
+            menuRegion.classList.toggle('show');
+        });
+
+        // Abrir/cerrar menú comuna
+        btnComuna.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menuRegion.classList.remove('show');
+            menuComuna.classList.toggle('show');
+        });
+
+        function seleccionarRegion(region) {
+            btnRegion.textContent = region.nombre;
+            inputRegion.value = region.id;
+            menuRegion.classList.remove('show');
+
+            btnComuna.textContent = '-- Seleccione la comuna --';
+            btnComuna.disabled = false;
+            inputComuna.value = '';
+            menuComuna.innerHTML = '';
+
+            if (comunasPorRegion[region.id]) {
+                comunasPorRegion[region.id].forEach(comuna => {
+                    const item = document.createElement('div');
+                    item.className = 'custom-option';
+                    item.textContent = comuna;
+                    item.addEventListener('click', () => seleccionarComuna(comuna));
+                    menuComuna.appendChild(item);
+                });
+            }
+        }
+
+        function seleccionarComuna(comuna) {
+            btnComuna.textContent = comuna;
+            inputComuna.value = comuna.toLowerCase().replace(/\s+/g, '-');
+            menuComuna.classList.remove('show');
+        }
+
+        // Cerrar desplegables al hacer clic en cualquier parte fuera
+        document.addEventListener('click', () => {
+            menuRegion.classList.remove('show');
+            menuComuna.classList.remove('show');
+        });
+    </script>
+
+</body>
+</html>
