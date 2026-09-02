@@ -120,6 +120,9 @@ body {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
   transition: transform 0.2s ease-in-out, border-color 0.2s ease-in-out;
   box-sizing: border-box;
+  /* Mantiene todas las tarjetas con la misma estructura vertical */
+  display: flex;
+  flex-direction: column;
 }
 
 .card:hover { 
@@ -190,9 +193,12 @@ input[type="radio"] { display: none; }
 /* ==========================================
    TEXTOS Y BOTONES
    ========================================== */
-.info { display: block; }
+.info { 
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Ocupa el espacio disponible para empujar el botón al fondo */
+}
 
-/* Cambia #MODEL-R1 a blanco */
 .code { 
   color: #ffffff !important; 
   font-size: 0.8rem; 
@@ -200,17 +206,28 @@ input[type="radio"] { display: none; }
   display: block; 
 }
 
-/* Cambia el título (RETRO 1) a blanco */
 h2 { 
   color: #ffffff !important; 
   margin: 5px 0; 
-  font-size: 1.5rem; 
+  font-size: 1.4rem; 
   text-transform: uppercase; 
   font-style: italic; 
   font-weight: 900; 
+  /* Fuerza a que todos los títulos reserven el espacio de 2 líneas */
+  min-height: 2.8rem; 
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
 }
 
-.price { color: #FF0033; font-weight: bold; font-size: 1.3rem; margin-top: 5px; }
+.price { 
+  color: #FF0033; 
+  font-weight: bold; 
+  font-size: 1.3rem; 
+  margin-top: auto; /* Empuja el precio y el botón hacia abajo */
+  margin-bottom: 15px;
+}
+
 .btn-buy {
   display: block;
   text-align: center;
@@ -226,7 +243,6 @@ h2 {
   box-sizing: border-box;
   transition: background-color 0.2s ease-in-out;
 }
-
 .btn-buy:hover { 
   background-color: #a00d32;
   color: white;              /* Evita cambios de color al pasar el cursor */
