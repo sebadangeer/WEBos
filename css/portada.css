@@ -1,0 +1,158 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  width: 100%;
+  background-color: #000000;
+  color: #ffffff;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ==========================================
+   SUELAS DE FONDO (PEGADAS A LAS ORILLAS)
+   ========================================== */
+
+/* Suela Izquierda */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 1vw;                    /* Pegada a la orilla izquierda */
+  width: 26vw;                  /* Ancho ajustado para no invadir el centro */
+  height: 100vh;
+  background-image: url('../img/portada/Ypo.jpg');
+  background-size: contain;
+  background-position: left center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Suela Derecha (Espejo) */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 1vw;                   /* Pegada a la orilla derecha */
+  width: 26vw;                  /* Ancho ajustado para no invadir el centro */
+  height: 100vh;
+  background-image: url('../img/portada/Ypo.jpg');
+  background-size: contain;
+  background-position: right center;
+  background-repeat: no-repeat;
+  transform: scaleX(-1);        /* Reflejo horizontal */
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ==========================================
+   TARJETA CENTRAL Y TEXTO AGRANDADO
+   ========================================== */
+
+.hero-overlay {
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Tarjeta principal ampliada */
+.hero-content {
+  max-width: 750px;              /* Aumentado de 550px a 750px */
+  padding: 55px 45px;            /* Espaciado interno más amplio */
+  background: rgba(10, 10, 10, 0.85); 
+  border: 2px solid rgba(255, 0, 51, 0.3);
+  border-radius: 25px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(8px);
+}
+
+/* Título de la tienda agrandado */
+.brand-title {
+  font-size: 3.8rem;             /* Aumentado considerablemente */
+  font-weight: 900;
+  font-style: italic;
+  color: #FF0033;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+  text-shadow: 0 0 20px rgba(255, 0, 51, 0.6);
+}
+
+/* Descripción agrandada */
+.brand-description {
+  font-size: 1.25rem;            /* Texto más legible y grande */
+  line-height: 1.6;
+  color: #e0e0e0;
+  margin-bottom: 35px;
+}
+
+/* Botones agrandados */
+.button-group {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  padding: 16px 36px;            /* Botones más grandes */
+  font-size: 1.05rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-red {
+  background-color: #FF0033;
+  color: #ffffff;
+  border: 2px solid #FF0033;
+  box-shadow: 0 5px 20px rgba(255, 0, 51, 0.5);
+}
+
+.btn-red:hover {
+  background-color: #a00d32;
+  border-color: #a00d32;
+  transform: translateY(-3px);
+}
+
+.btn-red-outline {
+  background-color: transparent;
+  color: #ffffff;
+  border: 2px solid #FF0033;
+}
+
+.btn-red-outline:hover {
+  background-color: #FF0033;
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 20px rgba(255, 0, 51, 0.5);
+}
+
+/* Ajustes adaptativos para pantallas pequeñas */
+@media (max-width: 900px) {
+  body::before,
+  body::after {
+    opacity: 0.25;              /* Oscurece las suelas en pantallas pequeñas */
+    width: 35vw;
+  }
+  .brand-title {
+    font-size: 2.5rem;
+  }
+}
