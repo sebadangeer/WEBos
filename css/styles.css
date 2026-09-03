@@ -65,12 +65,13 @@ body {
    AJUSTE DE IMÁGENES Y LOGOS EN TARJETAS
    ========================================== */
 .brand-card img {
-  width: 100% !important;
-  height: 350px !important;
+  width: 75% !important;
+  height: 200px !important;
   object-fit: contain !important;    
   background-color: #ffffff !important;
   border-radius: 12px !important;    
   padding: 10px !important;
+  margin: 0 auto !important;
 }
 
 /* ==========================================

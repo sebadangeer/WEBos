@@ -3,7 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!container) return;
 
     const path = window.location.pathname.toLowerCase();
-    const category = path.includes('catjordan') ? 'jordan' : 'sports';
+    const category = path.includes('catjordan')
+        ? 'jordan'
+        : path.includes('catnikeurban')
+            ? 'urban'
+            : 'sports';
     const apiUrl = path.includes('listarproductos')
         ? 'http://localhost:8080/api/productos'
         : `http://localhost:8080/api/productos/categoria/${category}`;
