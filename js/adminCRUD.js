@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const fields = ['nombreModelo', 'tipoCategoria', 'precio', 'linkImagen', 'descripcion'];
     const getField = name => document.getElementById(name);
     const money = value => `$ ${Number(value || 0).toLocaleString('es-CL')}`;
-    const categoryName = value => ({ jordan: 'Jordan', sports: 'Nike Sports', urban: 'Nike Urban' }[value] || value || 'Sin categoría');
+    const categoryName = value => ({ jordan: 'Jordan', sports: 'Nike Sports', urban: 'Nike Urban' }[String(value || '').toLowerCase()] || value || 'Sin categoría');
 
     function showMessage(element, message, isError = false) { element.textContent = message; element.classList.toggle('error', isError); }
     function resetForm() {
@@ -37,7 +37,12 @@ document.addEventListener('DOMContentLoaded', () => {
             showMessage(tableMessage, `${products.length} producto${products.length === 1 ? '' : 's'} registrado${products.length === 1 ? '' : 's'}.`);
         } catch (error) { renderProducts([]); showMessage(tableMessage, `${error.message} Verifica que el backend esté encendido.`, true); }
     }
-    function productPayload() { return fields.reduce((payload, field) => { payload[field] = getField(field).value.trim(); return payload; }, {}); }
+    function productPayload() {
+        return fields.reduce((payload, field) => {
+            payload[field] = field === 'precio' ? Number(getField(field).value) : getField(field).value.trim();
+            return payload;
+        }, {});
+    }
 
     form.addEventListener('submit', async event => {
         event.preventDefault();
