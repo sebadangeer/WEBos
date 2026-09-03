@@ -16,58 +16,30 @@
 
     <!-- MENÚ DE NAVEGACIÓN -->
 <!-- MENÚ DE NAVEGACIÓN -->
-    <nav class="navbar navbar-expand-lg navbar-light custom-nav" style="background-color: #ffffff !important;">
-      <div class="container-fluid">
-        <a class="navbar-brand d-flex align-items-center" href="index.html">
-          <img src="img/Gemini_Generated_Image_8lcyk68lcyk68lcy.jpg" alt="Logo" height="60" class="d-inline-block align-text-top me-3">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        
-        <div class="collapse navbar-collapse" id="navbarNav">
-          
-          <!-- Mensaje de Bienvenida en el lado izquierdo (Oculto por defecto con d-none) -->
-          <span id="mensaje-bienvenida" class="navbar-text fw-bold me-auto d-none" style="color: #000; font-size: 1.1rem;">
-              Bienvenido, <span id="nombre-usuario" style="color: #e50000;"></span>
-          </span>
+<nav class="navbar navbar-expand-lg custom-nav">
+  <div class="container-fluid p-0 d-flex align-items-center justify-content-between">
+    
+    <a class="navbar-brand ms-3" href="index.html">
+      <img src="img/logo/logoo.png" alt="Logo">
+    </a>
 
-          <!-- Enlaces de navegación alineados a la derecha (ms-auto) -->
-          <ul class="navbar-nav ms-auto align-items-center">
-            <li class="nav-item">
-              <a class="nav-link custom-link" href="portada.html">Inicio</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link custom-link" href="index.html">Productos</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link custom-link" href="nosotros.html">Nosotros</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link custom-link" href="blogs.html">blogs</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link custom-link" href="contacto.html">Contacto</a>
-            </li>
-            
-            <!-- Botón Iniciar Sesión (Se oculta si hay sesión activa) -->
-            <li class="nav-item" id="nav-login-item">
-              <a class="nav-link custom-link fw-bold" href="acceso.html" style="color: #e50000;">Iniciar Sesión</a>
-            </li>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav me-3">
+        <li class="nav-item"><a class="nav-link" href="portada.html">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link active" href="index.html">Productos</a></li>
+        <li class="nav-item"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
+        <li class="nav-item"><a class="nav-link" href="blogs.html">Blogs</a></li>
+        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+        <li class="nav-item"><a class="nav-link" href="acceso.html">Iniciar Sesión</a></li>
+      </ul>
+    </div>
 
-            <!-- Menú Desplegable "Mi cuenta" (Se muestra solo si hay sesión activa) -->
-            <li class="nav-item dropdown d-none" id="nav-user-dropdown">
-              <a class="nav-link dropdown-toggle fw-bold custom-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Mi cuenta
-              </a>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#" id="logout-btn">Cerrar sesión</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <a href="cart.html" class="cart-section">
+      <i class="bi bi-cart3 me-2"></i> Cart (0)
+    </a>
+
+  </div>
+</nav>
     
     <div class="titulo-tienda">
         <h1>SNEAKERS STORE</h1>
