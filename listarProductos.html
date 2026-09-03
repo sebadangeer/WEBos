@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Jordan - Bulls Theme</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <canvas id="webgl-canvas"></canvas>
+
+    <nav class="navbar navbar-expand-lg navbar-light custom-nav" style="background-color: #ffffff !important;">
+      <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+          <img src="img/Gemini_Generated_Image_8lcyk68lcyk68lcy.jpg" alt="Logo" height="60" class="d-inline-block align-text-top me-3">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+          
+          <span id="mensaje-bienvenida" class="navbar-text fw-bold me-auto d-none" style="color: #000; font-size: 1.1rem;">
+              Bienvenido, <span id="nombre-usuario" style="color: #e50000;"></span>
+          </span>
+
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item">
+              <a class="nav-link custom-link" href="portada.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link custom-link" href="index.html">Productos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link custom-link" href="nosotros.html">Nosotros</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link custom-link" href="contacto.html">Contacto</a>
+            </li>
+            
+            <li class="nav-item" id="nav-login-item">
+              <a class="nav-link custom-link fw-bold" href="acceso.html" style="color: #e50000;">Iniciar Sesión</a>
+            </li>
+
+            <li class="nav-item dropdown d-none" id="nav-user-dropdown">
+              <a class="nav-link dropdown-toggle fw-bold custom-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Mi cuenta
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#" id="logout-btn">Cerrar sesión</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+    <div class="titulo-tienda">
+        <h1>SNEAKERS STORE</h1>
+    </div>
+
+    <div class="infinite-carousel">
+        <div class="carousel-track">
+            <img src="img/re1.png" alt="Zapatilla 1">
+            <img src="img/re3.png" alt="Zapatilla 2">
+            <img src="img/re5.png" alt="Zapatilla 3">
+            <img src="img/re11.png" alt="Zapatilla 4">
+            <img src="img/re12.png" alt="Zapatilla 5">
+            <img src="img/re13.png" alt="Zapatilla 6">
+            <img src="img/re4.png" alt="Zapatilla 7">
+            <img src="img/tra1.png" alt="Zapatilla 8">
+
+            <img src="img/re1.png" alt="Zapatilla 1">
+            <img src="img/re3.png" alt="Zapatilla 2">
+            <img src="img/re5.png" alt="Zapatilla 3">
+            <img src="img/re11.png" alt="Zapatilla 4">
+            <img src="img/re12.png" alt="Zapatilla 5">
+            <img src="img/re13.png" alt="Zapatilla 6">
+            <img src="img/re4.png" alt="Zapatilla 7">
+            <img src="img/tra1.png" alt="Zapatilla 8">
+
+            <img src="img/re1.png" alt="Zapatilla 1">
+            <img src="img/re3.png" alt="Zapatilla 2">
+            <img src="img/re5.png" alt="Zapatilla 3">
+            <img src="img/re11.png" alt="Zapatilla 4">
+            <img src="img/re12.png" alt="Zapatilla 5">
+            <img src="img/re13.png" alt="Zapatilla 6">
+            <img src="img/re4.png" alt="Zapatilla 7">
+            <img src="img/tra1.png" alt="Zapatilla 8">
+
+            <img src="img/re1.png" alt="Zapatilla 1">
+            <img src="img/re3.png" alt="Zapatilla 2">
+            <img src="img/re5.png" alt="Zapatilla 3">
+            <img src="img/re11.png" alt="Zapatilla 4">
+            <img src="img/re12.png" alt="Zapatilla 5">
+            <img src="img/re13.png" alt="Zapatilla 6">
+            <img src="img/re4.png" alt="Zapatilla 7">
+            <img src="img/tra1.png" alt="Zapatilla 8">
+        </div>
+    </div>
+
+    <span></span>
+    <div class="titulo-tienda mb-4">
+        <h1>Jordan<br>Best seller</h1>
+    </div>
+
+    <div class="grid-container" id="productos-contenedor">
+        </div>
+
+    <script id="js-vertex-shader" type="x-shader/x-vertex">
+    attribute vec3 position;
+    void main() {
+        gl_Position = vec4(position, 1.0);
+    }
+    </script>
+
+    <script id="js-fragment-shader" type="x-shader/x-fragment">
+    precision highp float;
+    uniform vec2 resolution;
+    uniform float time;
+    uniform float xScale;
+    uniform float yScale;
+    uniform float distortion;
+
+    void main() {
+        vec2 p = (gl_FragCoord.xy * 2.0 - resolution) / min(resolution.x, resolution.y);
+        float d = length(p) * distortion;
+        
+        float rx = p.x * (1.0 + d);
+        float gx = p.x;
+        float bx = p.x * (1.0 - d);
+
+        float r = 0.05 / abs(p.y + sin((rx + time) * xScale) * yScale);
+        float g = 0.05 / abs(p.y + sin((gx + time) * xScale) * yScale);
+        float b = 0.05 / abs(p.y + sin((bx + time) * xScale) * yScale);
+        
+        gl_FragColor = vec4(r, g, b, 1.0);
+    }
+    </script>
+
+    <script>
+        const canvas = document.getElementById('webgl-canvas');
+        const gl = canvas.getContext('webgl');
+
+        if (gl) {
+            const vsSource = document.getElementById('js-vertex-shader').text;
+            const fsSource = document.getElementById('js-fragment-shader').text;
+
+            function createShader(gl, type, source) {
+                const shader = gl.createShader(type);
+                gl.shaderSource(shader, source);
+                gl.compileShader(shader);
+                return shader;
+            }
+
+            const vertexShader = createShader(gl, gl.VERTEX_SHADER, vsSource);
+            const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fsSource);
+            const program = gl.createProgram();
+
+            gl.attachShader(program, vertexShader);
+            gl.attachShader(program, fragmentShader);
+            gl.linkProgram(program);
+            gl.useProgram(program);
+
+            const positionBuffer = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+                -1, -1, 0,  1, -1, 0, -1,  1, 0,
+                -1,  1, 0,  1, -1, 0,  1,  1, 0
+            ]), gl.STATIC_DRAW);
+
+            const posAttr = gl.getAttribLocation(program, 'position');
+            gl.enableVertexAttribArray(posAttr);
+            gl.vertexAttribPointer(posAttr, 3, gl.FLOAT, false, 0, 0);
+
+            const resolutionLoc = gl.getUniformLocation(program, 'resolution');
+            const timeLoc = gl.getUniformLocation(program, 'time');
+            const xScaleLoc = gl.getUniformLocation(program, 'xScale');
+            const yScaleLoc = gl.getUniformLocation(program, 'yScale');
+            const distortionLoc = gl.getUniformLocation(program, 'distortion');
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                gl.viewport(0, 0, canvas.width, canvas.height);
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            function render(now) {
+                const time = now * 0.001;
+                gl.uniform2f(resolutionLoc, canvas.width, canvas.height);
+                gl.uniform1f(timeLoc, time);
+                gl.uniform1f(xScaleLoc, 2.5);
+                gl.uniform1f(yScaleLoc, 0.15);
+                gl.uniform1f(distortionLoc, 0.05);
+
+                gl.drawArrays(gl.TRIANGLES, 0, 6);
+                requestAnimationFrame(render);
+            }
+            requestAnimationFrame(render);
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Buscamos si existe alguien logueado en la memoria del navegador
+            const usuarioActivo = localStorage.getItem('usuarioActivo');
+            
+            // Atrapamos los elementos del menú
+            const btnLoginItem = document.getElementById('nav-login-item');
+            const menuUsuario = document.getElementById('nav-user-dropdown');
+            const mensajeBienvenida = document.getElementById('mensaje-bienvenida');
+            const spanNombre = document.getElementById('nombre-usuario');
+            const btnCerrarSesion = document.getElementById('logout-btn');
+
+            // Si hay un usuario guardado, cambiamos la vista
+            if (usuarioActivo) {
+                btnLoginItem.classList.add('d-none');           // Ocultamos "Iniciar Sesión"
+                menuUsuario.classList.remove('d-none');         // Mostramos "Mi cuenta"
+                mensajeBienvenida.classList.remove('d-none');   // Mostramos el texto de bienvenida
+                spanNombre.textContent = usuarioActivo;         // Insertamos el nombre de la cuenta
+            }
+
+            // Lógica para cerrar sesión
+            if (btnCerrarSesion) {
+                btnCerrarSesion.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    // Borramos los datos de sesión de la memoria
+                    localStorage.removeItem('usuarioActivo'); 
+                    // Recargamos la página para volver al estado normal
+                    window.location.reload(); 
+                });
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const contenedorProductos = document.getElementById('productos-contenedor');
+            
+            // Asegúrate de que este puerto coincida con el de tu aplicación Spring Boot
+            const apiUrl = 'http://localhost:8080/api/productos';
+
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error al obtener los productos');
+                    }
+                    return response.json();
+                })
+                .then(productos => {
+                    // Limpiamos el contenedor
+                    contenedorProductos.innerHTML = '';
+
+                    // Iteramos sobre cada producto recibido de la base de datos
+                    productos.forEach(producto => {
+                        // Formatear el precio (Ej: 149000 -> 149.000)
+                        const precioFormateado = producto.precio.toLocaleString('es-CL');
+
+                        // Construimos la estructura HTML de la tarjeta
+                        const cardHTML = `
+                            <div class="card">
+                                <input type="radio" name="sneaker${producto.id}" id="c${producto.id}-v1" class="r-1" checked>
+                                <input type="radio" name="sneaker${producto.id}" id="c${producto.id}-v2" class="r-2">
+                                <input type="radio" name="sneaker${producto.id}" id="c${producto.id}-v3" class="r-3">
+
+                                <div class="slider">
+                                    <div class="slide img-1"><img src="${producto.linkImagen}" alt="${producto.nombreModelo}"></div>
+                                    <div class="slide img-2"><img src="${producto.linkImagen}" alt="${producto.nombreModelo}"></div>
+                                    <div class="slide img-3"><img src="${producto.linkImagen}" alt="${producto.nombreModelo}"></div>
+                                    
+                                    <div class="nav nav-left">
+                                        <label for="c${producto.id}-v3" class="to-3">←</label>
+                                        <label for="c${producto.id}-v2" class="to-2">←</label>
+                                        <label for="c${producto.id}-v1" class="to-1">←</label>
+                                    </div>
+                                    <div class="nav nav-right">
+                                        <label for="c${producto.id}-v3" class="to-3">→</label>
+                                        <label for="c${producto.id}-v2" class="to-2">→</label>
+                                        <label for="c${producto.id}-v1" class="to-1">→</label>
+                                    </div>
+                                </div>
+
+                                <div class="info">
+                                    <span class="code">${producto.tipoCategoria || 'Jordan'}</span>
+                                    <h2>${producto.nombreModelo}</h2>
+                                    <p class="price">$ ${precioFormateado}</p>
+                                </div>
+                                <a href="compra.html?id=${producto.id}" class="btn-buy">Comprar Ahora</a>
+                            </div>
+                        `;
+
+                        // Inyectamos la tarjeta en el contenedor
+                        contenedorProductos.innerHTML += cardHTML;
+                    });
+                })
+                .catch(error => {
+                    console.error('Hubo un problema con la petición Fetch:', error);
+                    contenedorProductos.innerHTML = '<h3 style="color:red; grid-column: 1/-1; text-align:center;">No se pudieron cargar los productos. Verifica que el servidor backend esté encendido.</h3>';
+                });
+        });
+    </script>
+</body>
+</html>
