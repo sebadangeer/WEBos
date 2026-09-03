@@ -17,7 +17,7 @@ body {
 
   /* Propiedades de fondo ajustadas para mosaico/patrón */
   background-image: url('../img/logo/log4k.jpg');
-  background-size: 680px; /* Tamaño del patrón (puedes cambiarlo aquí o desde JS) */
+  background-size: 680px;
   background-position: top left;
   background-repeat: repeat;
   background-attachment: fixed;
@@ -297,43 +297,83 @@ h2 {
 .r-3:checked ~ .slider .nav-right .to-1, .r-3:checked ~ .slider .nav-left .to-2 { display: flex; }
 
 /* ==========================================
-   BARRA DE NAVEGACIÓN (MENÚ BLANCO)
+   BARRA DE NAVEGACIÓN (CORREGIDA Y ALINEADA)
    ========================================== */
 nav.navbar,
-.bg-body-tertiary {
-  background-color: #ffffff !important;
-  border-bottom: 1px solid #e5e5e5;
-  padding: 10px 20px;
+.custom-nav {
+  background-color: #111111 !important;
+  border-bottom: 3px solid #FF0033 !important;
+  padding: 0 !important;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  min-height: 65px;
 }
 
-.navbar .navbar-brand,
-.navbar .nav-link {
-  color: #111111 !important;
-  font-weight: 600;
-  font-size: 1rem;
-}
-
-.navbar .nav-link:hover {
-  color: #CE1141 !important;
-}
-
-.navbar img {
+.navbar .navbar-brand img {
   height: 55px !important;
   width: auto !important;
   object-fit: contain;
 }
 
-.navbar-collapse {
-  flex-grow: 0;
-}
-
+/* ESTRUCTURA FLEX DE LOS ENLACES */
 .navbar-nav {
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 0;
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.navbar-nav .nav-item {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.navbar .nav-link {
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 10px 14px !important;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  color: #FF0033 !important;
+}
+
+/* SEPARADOR | ALINEADO EN LA MISMA LÍNEA HORIZONTAL */
+@media (min-width: 992px) {
+  .navbar-nav .nav-item:not(:last-child)::after {
+    content: "|";
+    color: #444444;
+    margin: 0 4px;
+    font-weight: 300;
+    user-select: none;
+  }
+}
+
+/* BLOQUE DEL CARRITO CON CORTE DIAGONAL EN ROJO */
+.cart-section {
+  background: linear-gradient(135deg, transparent 25px, #3d030d 0, #1a0005 100%);
+  border-left: 2px solid #FF0033;
+  padding: 0 25px 0 35px;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.cart-section:hover {
+  background: linear-gradient(135deg, transparent 25px, #FF0033 0, #a00d32 100%);
+  color: #ffffff;
 }
 
 /* ==========================================
