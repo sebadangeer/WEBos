@@ -60,21 +60,24 @@ body {
 .product-hero {
     display: flex;
     width: 100%;
-    min-height: 100vh;
-    padding: 100px 8% 50px; /* Espacio para el nav absoluto */
+    max-width: 1280px;
+    margin: 0 auto;
+    min-height: 0;
+    padding: 110px 6% 60px; /* Espacio para el nav absoluto */
     align-items: center;
     justify-content: space-between;
+    gap: 6%;
     position: relative;
 }
 
 /* COLUMNA IZQUIERDA (TEXTO) */
 .product-info {
-    width: 45%;
+    width: 44%;
     z-index: 10;
 }
 
 .brand-name {
-    font-size: 4.5rem;
+    font-size: 3.6rem;
     font-weight: 700;
     margin-bottom: -10px;
     color: #ffffff;
@@ -82,7 +85,7 @@ body {
 }
 
 .product-title {
-    font-size: 3.5rem;
+    font-size: 2.8rem;
     font-weight: 700;
     color: #FF3333; /* Color llamativo estilo "Air Max Plus" de la foto */
     margin-bottom: 25px;
@@ -105,7 +108,7 @@ body {
     line-height: 1.6;
     color: #a0a0a0;
     max-width: 450px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 /* ZONA DE COMPRA Y PRECIO */
@@ -113,7 +116,7 @@ body {
     display: flex;
     align-items: center;
     gap: 30px;
-    margin-bottom: 50px;
+    margin-bottom: 0;
 }
 
 .price {
@@ -171,6 +174,7 @@ body {
 /* COLUMNA DERECHA (IMAGEN Y GRÁFICO) */
 .product-display {
     width: 50%;
+    max-width: 600px;
     position: relative;
     display: flex;
     justify-content: center;
@@ -192,8 +196,8 @@ body {
 .main-shoe-img {
     position: relative;
     z-index: 2;
-    width: 120%; /* Zapatilla gigante como en la imagen */
-    max-width: 800px;
+    width: 100%;
+    max-width: 600px;
     transform: rotate(-15deg); /* Inclinación dinámica */
     filter: drop-shadow(-20px 30px 25px rgba(0, 0, 0, 0.8)); /* Sombra realista */
     transition: transform 0.2s ease-out; /* Suavidad para el script de ratón */
