@@ -12,66 +12,57 @@ body {
   color: #ffffff;
   overflow: hidden;
   position: relative;
+  /* Evita comportamientos raros en móviles al arrastrar */
+  touch-action: none; 
 }
 
 /* ==========================================
-   SUELAS DE FONDO (PEGADAS A LAS ORILLAS)
+   DRAGÓN INTERACTIVO (FONDO)
    ========================================== */
-
-/* Suela Izquierda */
-body::before {
-  content: "";
+.dragon-container {
   position: fixed;
   top: 0;
-  left: 1vw;                    /* Pegada a la orilla izquierda */
-  width: 26vw;                  /* Ancho ajustado para no invadir el centro */
+  left: 0;
+  width: 100vw;
   height: 100vh;
-  background-image: url('../img/portada/Ypo.jpg');
-  background-size: contain;
-  background-position: left center;
-  background-repeat: no-repeat;
-  pointer-events: none;
-  z-index: 1;
+  z-index: 1; /* Se posiciona detrás de la tarjeta central */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
-/* Suela Derecha (Espejo) */
-body::after {
-  content: "";
-  position: fixed;
-  top: 0;
-  right: 1vw;                   /* Pegada a la orilla derecha */
-  width: 26vw;                  /* Ancho ajustado para no invadir el centro */
-  height: 100vh;
-  background-image: url('../img/portada/Ypo.jpg');
-  background-size: contain;
-  background-position: right center;
-  background-repeat: no-repeat;
-  transform: scaleX(-1);        /* Reflejo horizontal */
-  pointer-events: none;
-  z-index: 1;
+.dragon-container svg {
+  width: 100%;
+  height: 100%;
 }
 
 /* ==========================================
    TARJETA CENTRAL Y TEXTO AGRANDADO
    ========================================== */
-
 .hero-overlay {
   width: 100%;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.3); /* Leve oscurecimiento para resaltar la tarjeta sobre el dragón */
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   padding: 20px;
   position: relative;
-  z-index: 2;
+  z-index: 2; /* Por encima del dragón */
+  
+  /* Esto permite que el ratón "atraviese" este contenedor y el dragón reaccione a tus movimientos */
+  pointer-events: none; 
 }
 
 /* Tarjeta principal ampliada */
 .hero-content {
-  max-width: 750px;              /* Aumentado de 550px a 750px */
-  padding: 55px 45px;            /* Espaciado interno más amplio */
+  /* Reactivamos los clics únicamente para la tarjeta y sus botones */
+  pointer-events: auto; 
+  
+  max-width: 750px;
+  padding: 55px 45px;
   background: rgba(10, 10, 10, 0.85); 
   border: 2px solid rgba(255, 0, 51, 0.3);
   border-radius: 25px;
@@ -81,7 +72,7 @@ body::after {
 
 /* Título de la tienda agrandado */
 .brand-title {
-  font-size: 3.8rem;             /* Aumentado considerablemente */
+  font-size: 3.8rem;
   font-weight: 900;
   font-style: italic;
   color: #FF0033;
@@ -93,7 +84,7 @@ body::after {
 
 /* Descripción agrandada */
 .brand-description {
-  font-size: 1.25rem;            /* Texto más legible y grande */
+  font-size: 1.25rem;
   line-height: 1.6;
   color: #e0e0e0;
   margin-bottom: 35px;
@@ -109,7 +100,7 @@ body::after {
 
 .btn {
   display: inline-block;
-  padding: 16px 36px;            /* Botones más grandes */
+  padding: 16px 36px;
   font-size: 1.05rem;
   font-weight: bold;
   text-transform: uppercase;
@@ -147,11 +138,6 @@ body::after {
 
 /* Ajustes adaptativos para pantallas pequeñas */
 @media (max-width: 900px) {
-  body::before,
-  body::after {
-    opacity: 0.25;              /* Oscurece las suelas en pantallas pequeñas */
-    width: 35vw;
-  }
   .brand-title {
     font-size: 2.5rem;
   }
