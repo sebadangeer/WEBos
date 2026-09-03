@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const email = session.email || session.correo;
         if (!email) {
             alert('No encontramos el correo del cliente en la sesión.');
-            return;
+            return false;
         }
 
         const address = session.direccion || [session.region, session.comuna]
@@ -56,9 +56,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 '',
                 'Gracias por tu compra.'
             ].join('\n');
+
+            const clearResponse = await fetch(apiBase, { method: 'DELETE' });
+            if (!clearResponse.ok) {
+                throw new Error(await clearResponse.text() || 'La compra se creó, pero no se pudo vaciar el carrito.');
+            }
+
+            alert('Compra realizada con éxito');
+            window.location.reload();
+            return true;
         } catch (error) {
             console.error('Hubo un problema al crear la boleta:', error);
             alert(error.message);
+            return false;
         }
     };
 
@@ -190,7 +200,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        document.getElementById('pay-cart').addEventListener('click', () => sendReceipt(cart));
+        document.getElementById('pay-cart').addEventListener('click', async event => {
+            const button = event.currentTarget;
+            button.disabled = true;
+            button.textContent = 'Procesando...';
+            const completed = await sendReceipt(cart);
+            if (completed) {
+                render(await getCart());
+                return;
+            }
+            button.disabled = false;
+            button.textContent = 'Pagar y enviar boleta';
+        });
     };
 
     getCart().then(render).catch(error => {

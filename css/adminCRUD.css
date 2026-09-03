@@ -12,6 +12,14 @@ h2 { margin-bottom: 24px; font-size: 1.35rem; }
 .back-link:hover { color: var(--admin-red); }
 .admin-layout { display: grid; grid-template-columns: minmax(280px, 360px) minmax(0, 1fr); gap: 28px; margin-top: 42px; }
 .users-admin { margin-top: 56px; }
+.admin-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; margin-top: 56px; }
+.admin-option { position: relative; display: flex; min-height: 300px; flex-direction: column; padding: 30px; border: 1px solid var(--admin-line); background: var(--admin-surface); color: var(--admin-ink); text-decoration: none; transition: border-color .2s ease, transform .2s ease; }
+.admin-option:hover { border-color: var(--admin-red); transform: translateY(-4px); }
+.admin-option .eyebrow { margin-top: auto; }
+.admin-option strong { max-width: 360px; margin-top: 6px; font-size: clamp(1.8rem, 4vw, 3.2rem); line-height: 1; text-transform: uppercase; }
+.admin-option-description { max-width: 360px; margin-top: 18px; color: var(--admin-muted); line-height: 1.5; }
+.admin-option-number { position: absolute; top: 26px; right: 30px; color: var(--admin-red); font-size: .8rem; font-weight: 800; letter-spacing: 1px; }
+.admin-option-arrow { margin-top: 30px; color: var(--admin-red); font-size: 2rem; line-height: 1; }
 .product-form, .products-panel { padding: 30px; background: var(--admin-surface); border: 1px solid var(--admin-line); }
 .product-form { align-self: start; }
 .form-heading h2, .panel-heading h2 { margin-bottom: 0; }
@@ -43,5 +51,5 @@ td { padding: 15px 14px; border-top: 1px solid var(--admin-line); vertical-align
 .action-button { padding: 7px 9px; border: 1px solid var(--admin-line); background: #fff; cursor: pointer; font-size: .7rem; font-weight: 700; text-transform: uppercase; }
 .action-button:hover { border-color: var(--admin-red); color: var(--admin-red); }
 .action-button.delete:hover { border-color: var(--admin-red-dark); background: var(--admin-red-dark); color: #fff; }
-@media (max-width: 850px) { .admin-page { padding: 36px 20px 60px; } .admin-layout { grid-template-columns: 1fr; } }
+@media (max-width: 850px) { .admin-page { padding: 36px 20px 60px; } .admin-layout, .admin-options { grid-template-columns: 1fr; } }
 @media (max-width: 520px) { .admin-header, .panel-heading, .form-heading { flex-direction: column; } .form-row { grid-template-columns: 1fr; gap: 0; } .product-form, .products-panel { padding: 22px 16px; } }

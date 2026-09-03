@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('body > nav, body > .top-navbar, body > .nav-container').forEach(element => element.remove());
+    const isAdminNavbar = document.body.dataset.navbar === 'admin';
 
     document.body.insertAdjacentHTML('afterbegin', `
         <nav id="site-navbar" class="site-navbar">
@@ -11,24 +12,38 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span></span><span></span><span></span>
                 </button>
                 <div id="site-navbar-menu" class="site-navbar-menu">
-                    <a href="portada.html">Inicio</a>
-                    <a href="index.html">Productos</a>
-                    <a href="nosotros.html">Nosotros</a>
-                    <a href="blogs.html">Blogs</a>
-                    <a href="contacto.html">Contacto</a>
-                    <a href="acceso.html" id="nav-login-item">Iniciar Sesión</a>
-                    <div class="site-navbar-account d-none" id="nav-user-dropdown">
-                        <button type="button" id="account-toggle" aria-expanded="false">Mi Cuenta</button>
-                        <div class="site-navbar-account-menu">
-                            <a href="#">Perfil</a>
-                            <a href="#" id="logout-btn">Cerrar Sesión</a>
+                    ${isAdminNavbar ? `
+                        <a href="adminUsuarios.html">Gestionar clientes</a>
+                        <a href="adminProductos.html">Gestionar productos</a>
+                        <a href="index.html" id="logout-btn">Cerrar sesión</a>
+                    ` : `
+                        <a href="portada.html">Inicio</a>
+                        <a href="index.html">Productos</a>
+                        <a href="nosotros.html">Nosotros</a>
+                        <a href="blogs.html">Blogs</a>
+                        <a href="contacto.html">Contacto</a>
+                        <a href="acceso.html" id="nav-login-item">Iniciar Sesión</a>
+                        <div class="site-navbar-account d-none" id="nav-user-dropdown">
+                            <button type="button" id="account-toggle" aria-expanded="false">Mi Cuenta</button>
+                            <div class="site-navbar-account-menu">
+                                <a href="#">Perfil</a>
+                                <a href="#" id="logout-btn">Cerrar Sesión</a>
+                            </div>
                         </div>
-                    </div>
-                    <a class="site-navbar-cart" href="carrito.html">Cart (<span id="cart-count">0</span>)</a>
+                        <a class="site-navbar-cart" href="carrito.html">Cart (<span id="cart-count">0</span>)</a>
+                    `}
                 </div>
             </div>
         </nav>
     `);
+
+    if (isAdminNavbar) {
+        const adminPage = window.location.pathname.split('/').pop().toLowerCase();
+        document.querySelectorAll('#site-navbar-menu > a').forEach(link => {
+            const linkPage = link.getAttribute('href')?.split('#')[0].toLowerCase();
+            if (linkPage === adminPage) link.classList.add('active');
+        });
+    }
 
     const currentPage = window.location.pathname.split('/').pop().toLowerCase() || 'portada.html';
     const activePage = currentPage === 'carrito.html'
@@ -79,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         localStorage.removeItem('usuarioActivo');
         localStorage.removeItem('usuarioSesion');
-        window.location.reload();
+        window.location.href = isAdminNavbar ? 'index.html' : window.location.href;
     });
 
     const session = JSON.parse(localStorage.getItem('usuarioSesion') || 'null');
