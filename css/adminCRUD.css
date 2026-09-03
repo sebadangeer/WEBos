@@ -11,6 +11,7 @@ h2 { margin-bottom: 24px; font-size: 1.35rem; }
 .back-link { color: var(--admin-ink); font-size: .85rem; font-weight: 700; text-transform: uppercase; text-decoration: none; }
 .back-link:hover { color: var(--admin-red); }
 .admin-layout { display: grid; grid-template-columns: minmax(280px, 360px) minmax(0, 1fr); gap: 28px; margin-top: 42px; }
+.users-admin { margin-top: 56px; }
 .product-form, .products-panel { padding: 30px; background: var(--admin-surface); border: 1px solid var(--admin-line); }
 .product-form { align-self: start; }
 .form-heading h2, .panel-heading h2 { margin-bottom: 0; }

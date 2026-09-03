@@ -69,4 +69,76 @@ document.addEventListener('DOMContentLoaded', () => {
     cancelButton.addEventListener('click', resetForm);
     document.getElementById('refresh-products').addEventListener('click', loadProducts);
     loadProducts();
+
+    const usersApiBase = 'http://localhost:8080/api/clientes';
+    const userForm = document.getElementById('user-form');
+    const usersTableBody = document.getElementById('users-table-body');
+    const usersTableMessage = document.getElementById('users-table-message');
+    const userFormMessage = document.getElementById('user-form-message');
+    const userFormTitle = document.getElementById('user-form-title');
+    const userSubmitButton = document.getElementById('user-submit-button');
+    const cancelUserButton = document.getElementById('cancel-user-edit');
+    const userIdField = document.getElementById('user-id');
+    const userFields = ['nombreCompleto', 'email', 'contrasena', 'numero', 'region', 'comuna'];
+    const getUserField = name => document.getElementById(name);
+    const userId = user => user.id ?? user.idCliente;
+    const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[character]));
+
+    function resetUserForm() {
+        userForm.reset(); userIdField.value = ''; userFormTitle.textContent = 'Nuevo usuario'; userSubmitButton.textContent = 'Guardar usuario'; cancelUserButton.classList.add('hidden'); showMessage(userFormMessage, '');
+    }
+    function fillUserForm(user) {
+        userIdField.value = userId(user);
+        userFields.forEach(field => { if (field !== 'contrasena') getUserField(field).value = user[field] ?? ''; });
+        getUserField('contrasena').value = '';
+        userFormTitle.textContent = 'Editar usuario'; userSubmitButton.textContent = 'Actualizar usuario'; cancelUserButton.classList.remove('hidden'); showMessage(userFormMessage, 'Editando el usuario seleccionado.');
+        window.scrollTo({ top: document.querySelector('.users-admin').offsetTop, behavior: 'smooth' });
+    }
+    function renderUsers(users) {
+        usersTableBody.innerHTML = users.length ? users.map(user => `
+            <tr><td><p class="product-name">${escapeHtml(user.nombreCompleto || user.pnombre || 'Sin nombre')}</p><p class="product-id">ID: ${escapeHtml(userId(user))}</p></td><td>${escapeHtml(user.email || 'Sin correo')}<br><span class="product-id">${escapeHtml(user.numero || 'Sin teléfono')}</span></td><td>${escapeHtml(user.comuna || 'Sin comuna')}<br><span class="product-id">${escapeHtml(user.region || 'Sin región')}</span></td><td><div class="actions"><button class="action-button" type="button" data-user-action="edit" data-id="${escapeHtml(userId(user))}">Editar</button><button class="action-button delete" type="button" data-user-action="delete" data-id="${escapeHtml(userId(user))}">Eliminar</button></div></td></tr>`).join('') : '<tr><td colspan="4">No hay usuarios registrados.</td></tr>';
+    }
+    async function loadUsers() {
+        showMessage(usersTableMessage, 'Cargando usuarios...');
+        try {
+            const response = await fetch(usersApiBase);
+            if (!response.ok) throw new Error('No se pudo obtener la lista de usuarios.');
+            const users = await response.json(); renderUsers(users);
+            showMessage(usersTableMessage, `${users.length} usuario${users.length === 1 ? '' : 's'} registrado${users.length === 1 ? '' : 's'}.`);
+        } catch (error) { renderUsers([]); showMessage(usersTableMessage, `${error.message} Verifica que el backend esté encendido.`, true); }
+    }
+    function userPayload() {
+        return userFields.reduce((payload, field) => {
+            const value = getUserField(field).value.trim();
+            if (field !== 'contrasena' || value) payload[field] = value;
+            return payload;
+        }, {});
+    }
+    userForm.addEventListener('submit', async event => {
+        event.preventDefault();
+        if (!userForm.checkValidity()) { userForm.reportValidity(); return; }
+        const id = userIdField.value; const payload = userPayload();
+        if (!id && !payload.contrasena) { showMessage(userFormMessage, 'La contraseña es obligatoria para crear un usuario.', true); return; }
+        userSubmitButton.disabled = true; showMessage(userFormMessage, id ? 'Actualizando usuario...' : 'Guardando usuario...');
+        try {
+            const response = await fetch(id ? `${usersApiBase}/${id}` : usersApiBase, { method: id ? 'PUT' : 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            if (!response.ok) throw new Error(await response.text() || 'La operación no pudo completarse.');
+            resetUserForm(); await loadUsers(); showMessage(userFormMessage, id ? 'Usuario actualizado correctamente.' : 'Usuario creado correctamente.');
+        } catch (error) { showMessage(userFormMessage, error.message, true); } finally { userSubmitButton.disabled = false; }
+    });
+    usersTableBody.addEventListener('click', async event => {
+        const button = event.target.closest('[data-user-action]'); if (!button) return;
+        const selectedId = button.dataset.id;
+        if (button.dataset.userAction === 'edit') {
+            try { const response = await fetch(usersApiBase); const users = await response.json(); fillUserForm(users.find(user => String(userId(user)) === selectedId)); } catch (error) { showMessage(usersTableMessage, 'No se pudo cargar el usuario para editar.', true); }
+            return;
+        }
+        if (button.dataset.userAction === 'delete' && window.confirm('¿Eliminar este usuario? Esta acción no se puede deshacer.')) {
+            button.disabled = true;
+            try { const response = await fetch(`${usersApiBase}/${selectedId}`, { method: 'DELETE' }); if (!response.ok) throw new Error(await response.text() || 'No se pudo eliminar el usuario.'); await loadUsers(); showMessage(userFormMessage, 'Usuario eliminado correctamente.'); } catch (error) { showMessage(usersTableMessage, error.message, true); button.disabled = false; }
+        }
+    });
+    cancelUserButton.addEventListener('click', resetUserForm);
+    document.getElementById('refresh-users').addEventListener('click', loadUsers);
+    loadUsers();
 });
