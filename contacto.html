@@ -69,5 +69,38 @@
 
     </div>
 
+    <!-- Tu código HTML anterior se mantiene igual arriba de esto -->
+
+    <script>
+        document.getElementById('form-contacto').addEventListener('submit', function(e) {
+            e.preventDefault(); // Evita que la página se recargue al enviar el formulario
+            
+            // Obtenemos los valores de los inputs
+            const nombre = document.getElementById('nombre').value;
+            const correo = document.getElementById('correo').value;
+            const contenido = document.getElementById('contenido').value;
+            
+            // Correo de destino
+            const destinatario = "se.balladares@duocuc.cl";
+            
+            // Asunto predeterminado
+            const asunto = encodeURIComponent("Nuevo contacto desde Sneakers Store");
+            
+            // Cuerpo del correo con los datos del usuario
+            const cuerpo = encodeURIComponent(
+                "Nombre: " + nombre + "\n" +
+                "Correo de contacto: " + correo + "\n\n" +
+                "Mensaje:\n" + contenido
+            );
+            
+            // URL mágica que abre la versión web de Gmail para redactar el correo
+            const urlGmail = `https://mail.google.com/mail/?view=cm&fs=1&to=${destinatario}&su=${asunto}&body=${cuerpo}`;
+            
+            // Abrir Gmail en una nueva pestaña
+            window.open(urlGmail, '_blank');
+        });
+    </script>
+</body>
+</html>
 </body>
 </html>
