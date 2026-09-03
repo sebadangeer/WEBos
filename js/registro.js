@@ -143,7 +143,7 @@
 
     // Estructura adaptada al modelo Java (Cliente)
     const nuevoCliente = {
-        pnombre: nombreCompleto,
+        nombreCompleto,
         email: correo,
         contrasena: password,
         numero: telefono,

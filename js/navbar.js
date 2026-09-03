@@ -24,14 +24,16 @@ document.addEventListener('DOMContentLoaded', () => {
                             <a href="#" id="logout-btn">Cerrar Sesión</a>
                         </div>
                     </div>
-                    <a class="site-navbar-cart" href="compra.html">Cart (0)</a>
+                    <a class="site-navbar-cart" href="carrito.html">Cart (<span id="cart-count">0</span>)</a>
                 </div>
             </div>
         </nav>
     `);
 
     const currentPage = window.location.pathname.split('/').pop().toLowerCase() || 'portada.html';
-    const activePage = currentPage === 'blogs.html'
+    const activePage = currentPage === 'carrito.html'
+        ? 'carrito.html'
+        : currentPage === 'blogs.html'
         ? 'blogs.html'
         : currentPage === 'nosotros.html'
             ? 'nosotros.html'
@@ -39,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ? 'contacto.html'
                 : ['acceso.html', 'login.html', 'registro.html'].includes(currentPage)
                     ? 'acceso.html'
-                    : ['compra.html', 'comprartarjeta.html'].includes(currentPage)
+                    : ['compra.html', 'carrito.html', 'comprartarjeta.html'].includes(currentPage)
                         ? 'compra.html'
                         : ['index.html', 'listarproductos.html', 'detalle.html', 'catjordan.html', 'catnikesports.html', 'catnikeurban.html', 'jordan.html', 'nike.html', 'nike.sports.html'].includes(currentPage)
                             ? 'index.html'
@@ -79,4 +81,16 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.removeItem('usuarioSesion');
         window.location.reload();
     });
+
+    const session = JSON.parse(localStorage.getItem('usuarioSesion') || 'null');
+    if (session?.id) {
+        fetch(`http://localhost:8080/api/clientes/${session.id}/carrito`)
+            .then(response => response.ok ? response.json() : null)
+            .then(cart => {
+                const count = (cart?.items || []).reduce((total, item) => total + Number(item.cantidad || 0), 0);
+                const cartCount = document.getElementById('cart-count');
+                if (cartCount) cartCount.textContent = count;
+            })
+            .catch(() => {});
+    }
 });

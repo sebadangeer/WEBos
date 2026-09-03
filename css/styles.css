@@ -398,7 +398,8 @@ nav.navbar,
 }
 
 .size-picker label {
-  width: 48px;
+  min-width: 48px;
+  width: auto;
   height: 48px;
   background-color: #050505;
   border: 2px solid #333;
@@ -408,6 +409,7 @@ nav.navbar,
   justify-content: center;
   font-weight: bold;
   font-size: 0.95rem;
+  padding: 0 8px;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
