@@ -101,59 +101,6 @@
         </form>
     </div>
 
-    <!-- SCRIPT PARA EFECTO 3D Y SINCRONIZACIÓN DE DATOS -->
-    <script>
-        const cardNumberInput = document.getElementById('card-number-input');
-        const cardNameInput = document.getElementById('card-name-input');
-        const cardMonthInput = document.getElementById('card-month-input');
-        const cardYearInput = document.getElementById('card-year-input');
-        const cardCvvInput = document.getElementById('card-cvv-input');
-
-        const cardNumberDisplay = document.getElementById('card-number-display');
-        const cardNameDisplay = document.getElementById('card-name-display');
-        const cardExpiryDisplay = document.getElementById('card-expiry-display');
-        const cardCvvDisplay = document.getElementById('card-cvv-display');
-        
-        const cardInner = document.getElementById('card-inner');
-
-        // Formatear número de tarjeta con espacios
-        cardNumberInput.addEventListener('input', (e) => {
-            let value = e.target.value.replace(/\D/g, '');
-            value = value.replace(/(.{4})/g, '$1 ').trim();
-            e.target.value = value;
-            cardNumberDisplay.textContent = value || '#### #### #### ####';
-        });
-
-        // Actualizar nombre
-        cardNameInput.addEventListener('input', (e) => {
-            cardNameDisplay.textContent = e.target.value.toUpperCase() || 'NOMBRE COMPLETO';
-        });
-
-        // Actualizar fecha de expiración
-        const updateExpiry = () => {
-            const month = cardMonthInput.value || 'MM';
-            const year = cardYearInput.value || 'YY';
-            cardExpiryDisplay.textContent = `${month}/${year}`;
-        };
-        cardMonthInput.addEventListener('change', updateExpiry);
-        cardYearInput.addEventListener('change', updateExpiry);
-
-        // Actualizar CVV y voltear tarjeta
-        cardCvvInput.addEventListener('input', (e) => {
-            let value = e.target.value.replace(/\D/g, '');
-            e.target.value = value;
-            cardCvvDisplay.textContent = value;
-        });
-
-        // Voltear la tarjeta al enfocar el CVV
-        cardCvvInput.addEventListener('focus', () => {
-            cardInner.style.transform = 'rotateY(180deg)';
-        });
-
-        // Devolver la tarjeta a la normalidad al desenfocar
-        cardCvvInput.addEventListener('blur', () => {
-            cardInner.style.transform = 'rotateY(0deg)';
-        });
-    </script>
+    <script src="js/pago-tarjeta.js"></script>
 </body>
 </html>

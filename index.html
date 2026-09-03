@@ -95,34 +95,6 @@
         </div>
     </div>
 
-    <!-- SCRIPT PARA CAMBIAR EL FONDO AL PASAR EL MOUSE -->
-    <script>
-      const cards = document.querySelectorAll('.brand-card');
-      const body = document.getElementById('page-body');
-      const defaultBackground = "url('img/logo/log4k.jpg')";
-
-      // Establecer el fondo por defecto en mosaico
-      body.style.backgroundImage = defaultBackground;
-      body.style.backgroundSize = '680px';
-      body.style.backgroundRepeat = 'repeat';
-
-      cards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            const bgImage = this.getAttribute('data-bg');
-            if (bgImage) {
-                body.style.backgroundImage = `url('${bgImage}')`;
-                // Configuración de mosaico idéntica para todas las tarjetas
-                body.style.backgroundSize = '280px';
-                body.style.backgroundRepeat = 'repeat';
-            }
-        });
-
-        card.addEventListener('mouseleave', function() {
-            body.style.backgroundImage = defaultBackground;
-            body.style.backgroundSize = '280px';
-            body.style.backgroundRepeat = 'repeat';
-            });
-          });
-      </script>
+      <script src="js/index.js"></script>
 </body>
 </html>

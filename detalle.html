@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Air Jordan Retro 1 - Detalles</title>
+    <title>Detalles del producto</title>
     <!-- Bootstrap 5 CSS para la navegación -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Iconos de Bootstrap -->
@@ -55,17 +55,15 @@
         
         <!-- Columna Izquierda: Información -->
         <div class="product-info">
-            <h1 class="brand-name">Jordan</h1>
-            <h2 class="product-title">Air Jordan Retro 1</h2>
+            <h1 class="brand-name" id="product-brand">Jordan</h1>
+            <h2 class="product-title" id="product-title">Cargando producto...</h2>
             
             <h3 class="subtitle">UN CLÁSICO REINVENTADO</h3>
-            <p class="description">
-                Deja que tu actitud marque la diferencia. Las Air Jordan Retro 1 ofrecen una estabilidad premium y una amortiguación increíble. Con un diseño que rinde homenaje a los colores originales y acentos en rojo intenso, este par celebra el estilo urbano más puro y desafiante.
-            </p>
+            <p class="description" id="product-description">Estamos cargando la información del producto.</p>
             
             <div class="purchase-area">
-                <span class="price">$149.000</span>
-                <a href="compra.html" class="btn-buy">Comprar Ahora</a>
+                <span class="price" id="product-price"></span>
+                <a href="compra.html" class="btn-buy" id="buy-button">Comprar Ahora</a>
             </div>
             
             <div class="watch-preview">
@@ -92,7 +90,7 @@
             </svg>
             
             <!-- Imagen principal de la zapatilla -->
-            <img src="img/re1.png" alt="Air Jordan Retro 1" class="main-shoe-img">
+            <img src="img/re1.png" alt="Producto" class="main-shoe-img" id="product-image">
         </div>
 
     </main>
@@ -100,47 +98,8 @@
     <!-- Script de Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Script de Sesión y Animación 3D para la zapatilla -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // CONTROL DE SESIÓN
-            const usuarioActivo = localStorage.getItem('usuarioActivo');
-            if (usuarioActivo) {
-                document.getElementById('nav-login-item')?.classList.add('d-none');
-                document.getElementById('nav-user-dropdown')?.classList.remove('d-none');
-            }
-            document.getElementById('logout-btn')?.addEventListener('click', (e) => {
-                e.preventDefault();
-                localStorage.removeItem('usuarioActivo'); 
-                window.location.reload(); 
-            });
+    <script src="js/detalle.js"></script>
 
-            // EFECTO PARALLAX EN LA ZAPATILLA
-            const display = document.querySelector('.product-display');
-            const shoeImg = document.querySelector('.main-shoe-img');
-            const svgLines = document.querySelector('.abstract-lines');
-
-            display.addEventListener('mousemove', (e) => {
-                const rect = display.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                // Calculamos el centro
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-
-                const moveX = (x - centerX) / 15;
-                const moveY = (y - centerY) / 15;
-
-                shoeImg.style.transform = `rotate(-15deg) translate(${moveX}px, ${moveY}px)`;
-                svgLines.style.transform = `translate(${-moveX * 0.5}px, ${-moveY * 0.5}px)`;
-            });
-
-            display.addEventListener('mouseleave', () => {
-                shoeImg.style.transform = `rotate(-15deg) translate(0px, 0px)`;
-                svgLines.style.transform = `translate(0px, 0px)`;
-            });
-        });
-    </script>
+    <script src="js/session.js"></script>
 </body>
 </html>

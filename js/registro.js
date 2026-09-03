@@ -113,6 +113,13 @@
     const region = document.getElementById('region').value;
     const comuna = document.getElementById('comuna').value;
 
+    const dominiosPermitidos = /^[a-zA-Z0-9._%+-]+@(gmail\.com|duocuc\.cl|profesorduoc\.cl)$/i;
+
+    if (!dominiosPermitidos.test(correo)) {
+        alert('El correo debe pertenecer a uno de los siguientes dominios: @gmail.com, @duocuc.cl o @profesorduoc.cl');
+        return;
+    }
+
     // Validaciones en el cliente
     if (correo !== confirmarCorreo) {
         alert('Los correos electrónicos no coinciden.');
