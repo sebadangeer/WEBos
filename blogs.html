@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogs - Sneakers Store</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Tu archivo CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- NAVBAR (Estilo claro definido en tu CSS) -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand text-uppercase fw-bold" href="#">
+                <span class="text-bulls-red">■</span> FACTURE SNEAKERS
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-toggle="target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Productos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Nosotros</a></li>
+                    <li class="nav-item"><a class="nav-link text-bulls-red active" href="blogs.html">Blogs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HEADER DE LA PÁGINA -->
+    <div class="titulo-tienda mt-4">
+        <h1>NUESTROS BLOGS</h1>
+        <div class="titulo-banner-marcas mt-3">
+            Noticias y Novedades del Mundo Sneaker
+        </div>
+    </div>
+
+    <!-- CONTENEDOR DE BLOGS -->
+    <div class="grid-container" id="blogs-container">
+        <div class="text-center w-100 text-white py-5" id="cargando-mensaje">
+            <div class="spinner-border text-bulls-red mb-3" role="status"></div>
+            <h4 class="fw-bold font-italic">Cargando la cultura sneaker...</h4>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE CONEXIÓN A SPRING BOOT -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            cargarBlogs();
+        });
+
+        async function cargarBlogs() {
+            const urlAPI = 'http://localhost:8080/api/blogs'; 
+            
+            try {
+                const response = await fetch(urlAPI);
+                if (!response.ok) {
+                    throw new Error('Error en la respuesta de la red');
+                }
+                
+                const blogs = await response.json();
+                const container = document.getElementById('blogs-container');
+                
+                container.innerHTML = ''; // Limpiar mensaje de carga
+
+                if (blogs.length === 0) {
+                    container.innerHTML = `
+                        <div class="text-center w-100 mt-5">
+                            <h3 class="text-white fw-bold">Aún no hay publicaciones</h3>
+                            <p class="text-secondary">Vuelve pronto para más novedades del mundo sneaker.</p>
+                        </div>`;
+                    return;
+                }
+
+                // Generar tarjetas con el nuevo diseño
+                blogs.forEach(blog => {
+                    const imagenUrl = blog.link_imagen_post || 'https://images.unsplash.com/photo-1552346154-21d32810baa3?auto=format&fit=crop&w=600&q=80';
+
+                    const cardHTML = `
+                        <div class="card blog-card">
+                            <div class="blog-img-container">
+                                <img src="${imagenUrl}" alt="${blog.nombre_post}" class="blog-img">
+                                <div class="blog-badge">POST #${blog.id_posteo}</div>
+                            </div>
+                            
+                            <div class="info">
+                                <h2>${blog.nombre_post}</h2>
+                                <p class="blog-desc">${blog.descripcion_post}</p>
+                                
+                                <button class="btn-buy mt-auto" onclick="verPost(${blog.id_posteo})">
+                                    LEER MÁS <span>➔</span>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    container.innerHTML += cardHTML;
+                });
+
+            } catch (error) {
+                console.error("Error al cargar los blogs:", error);
+                const container = document.getElementById('blogs-container');
+                container.innerHTML = `
+                    <div class="text-center w-100 text-white mt-5 p-4" style="background: #111; border: 1px solid #CE1141; border-radius: 15px;">
+                        <h4 class="text-bulls-red fw-bold mb-3">¡Ouch! Error de conexión</h4>
+                        <p>No pudimos conectar con el servidor. Verifica que Spring Boot esté ejecutándose en el puerto 8080.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function verPost(id) {
+            alert("Redirigiendo al detalle del post ID: " + id);
+        }
+    </script>
+    <!-- Bootstrap JS (Para menú móvil) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
