@@ -1,12 +1,13 @@
 /* ==========================================
-   RESET GENERAL Y BODY (FLEXBOX APLICADO)
+   RESET GENERAL Y BODY
    ========================================== */
 * {
   box-sizing: border-box;
 }
 
 body {
-  background-color: #050505;
+  background-color: #050505 !important;
+  background-image: none !important;
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
@@ -14,23 +15,63 @@ body {
   overflow-x: hidden;
   width: 100%;
   min-height: 100vh;
-
-  /* ESTRUCTURA FLEXBOX PARA PEGADO DE FOOTER ABAJO */
   display: flex;
   flex-direction: column;
-
-  /* Propiedades de fondo ajustadas para mosaico/patrón */
-  background-image: url('../img/logo/log4k.jpg');
-  background-size: 680px; 
-  background-position: top left;
-  background-repeat: repeat;
-  background-attachment: fixed;
-  transition: background-image 0.6s ease-in-out, background-size 0.3s ease;
 }
 
 /* ==========================================
-   ESTILOS URBANOS - TEMA CHICAGO BULLS
+   CANVAS DE FONDO (LÍNEA NEÓN ONDEADA)
    ========================================== */
+#webgl-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  background: transparent !important;
+}
+
+/* ==========================================
+   BARRA DE NAVEGACIÓN (MENÚ)
+   ========================================== */
+nav.navbar,
+.bg-body-tertiary {
+  background-color: #ffffff !important;
+  border-bottom: 3px solid #CE1141;
+  padding: 12px 20px;
+}
+
+.navbar .navbar-brand,
+.navbar .nav-link {
+  color: #111111 !important;
+  font-weight: 800;
+  font-size: 1.05rem;
+  transition: color 0.2s ease;
+}
+
+.navbar .nav-link:hover, .navbar .nav-link.active {
+  color: #CE1141 !important;
+}
+
+.navbar img {
+  height: 55px !important;
+  width: auto !important;
+  object-fit: contain;
+}
+
+.navbar-collapse { flex-grow: 0; }
+
+.navbar-nav {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 .nav-container { width: 100%; }
 .bg-bulls-dark { background-color: #111111 !important; }
 .text-bulls-red { color: #CE1141 !important; }
@@ -45,29 +86,6 @@ body {
 .btn-bulls:hover {
   background-color: #a00d32;
   color: white;
-}
-
-.brand-card {
-  border: 2px solid #222;
-  transition: transform 0.3s ease, border-color 0.2s ease-in-out;
-}
-
-.brand-card:hover {
-  transform: translateY(-5px);
-  border-color: #CE1141;
-}
-
-/* ==========================================
-   AJUSTE DE IMÁGENES Y LOGOS EN TARJETAS
-   ========================================== */
-.brand-card img {
-  width: 75% !important;
-  height: 200px !important;
-  object-fit: contain !important;    
-  background-color: #ffffff !important;
-  border-radius: 12px !important;    
-  padding: 10px !important;
-  margin: 0 auto !important;
 }
 
 /* ==========================================
@@ -91,7 +109,7 @@ body {
 
 .titulo-banner-marcas {
   display: inline-block;
-  background-color: rgba(17, 17, 17, 0.95);
+  background-color: #111111;
   color: #ffffff;
   padding: 12px 28px;
   border-radius: 15px;
@@ -103,10 +121,11 @@ body {
   margin-bottom: 2rem;
 }
 
+/* CARRUSEL CONTINUO */
 .infinite-carousel {
   width: 100%;
   overflow: hidden;
-  background-color: #080808;
+  background-color: transparent !important;
   padding: 15px 0;
 }
 
@@ -129,7 +148,7 @@ body {
 }
 
 /* ==========================================
-   GRILLA DE TARJETAS (EMPUESTA FLEXBOX)
+   GRILLA DE TARJETAS
    ========================================== */
 .grid-container {
   display: grid;
@@ -139,20 +158,20 @@ body {
   padding: 0 20px 50px;
   max-width: 1200px;
   margin: 0 auto;
-  flex: 1; /* EXPANDE EL CONTENIDO CENTRAL PARA EMPUJAR EL FOOTER ABAJO */
+  flex: 1;
   width: 100%;
 }
 
 /* ==========================================
-   TARJETA Y SLIDER INTERNO
+   TARJETAS DE PRODUCTO (NEGRO SÓLIDO)
    ========================================== */
 .card {
   width: 100%;
-  background-color: #111111;
+  background-color: #111111 !important;
   border-radius: 20px;
   padding: 25px;
   border: 2px solid #222;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.9);
   transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   box-sizing: border-box;
   display: flex;
@@ -163,9 +182,32 @@ body {
 .card:hover { 
   transform: translateY(-8px); 
   border-color: #FF0033; 
-  box-shadow: 0 15px 35px rgba(255, 0, 51, 0.2);
+  box-shadow: 0 15px 35px rgba(255, 0, 51, 0.3);
 }
 
+.brand-card {
+  border: 2px solid #222;
+  transition: transform 0.3s ease, border-color 0.2s ease-in-out;
+}
+
+.brand-card:hover {
+  transform: translateY(-5px);
+  border-color: #CE1141;
+}
+
+.brand-card img {
+  width: 75% !important;
+  height: 200px !important;
+  object-fit: contain !important;    
+  background-color: #ffffff !important;
+  border-radius: 12px !important;    
+  padding: 10px !important;
+  margin: 0 auto !important;
+}
+
+/* ==========================================
+   SLIDER INTERNO DE PRODUCTOS
+   ========================================== */
 input[type="radio"] { display: none; }
 
 .slider {
@@ -195,12 +237,10 @@ input[type="radio"] { display: none; }
   height: auto;
   object-fit: contain;
   transform: rotate(-12deg);
-  filter: drop-shadow(0px 10px 12px rgba(240, 238, 238, 0.85));
+  filter: drop-shadow(0px 10px 12px rgba(0, 0, 0, 0.85));
 }
 
-/* ==========================================
-   FLECHAS DE NAVEGACIÓN
-   ========================================== */
+/* FLECHAS DE NAVEGACIÓN */
 .nav { 
   position: absolute; 
   top: 50%; 
@@ -226,8 +266,17 @@ input[type="radio"] { display: none; }
 
 .nav label:hover { background: #FF0033; }
 
+/* LÓGICA DEL CARRUSEL INTERNO */
+.r-1:checked ~ .slider .img-1 { opacity: 1; }
+.r-2:checked ~ .slider .img-2 { opacity: 1; }
+.r-3:checked ~ .slider .img-3 { opacity: 1; }
+
+.r-1:checked ~ .slider .nav-right .to-2, .r-1:checked ~ .slider .nav-left .to-3 { display: flex; }
+.r-2:checked ~ .slider .nav-right .to-3, .r-2:checked ~ .slider .nav-left .to-1 { display: flex; }
+.r-3:checked ~ .slider .nav-right .to-1, .r-3:checked ~ .slider .nav-left .to-2 { display: flex; }
+
 /* ==========================================
-   TEXTOS Y BOTONES
+   TEXTOS Y BOTONES DE PRODUCTO
    ========================================== */
 .info { 
   display: flex;
@@ -286,56 +335,6 @@ h2 {
   background-color: #FF0033;
   color: #ffffff !important;
   box-shadow: 0 5px 15px rgba(255, 0, 51, 0.4);
-}
-
-/* ==========================================
-   LÓGICA DEL CARRUSEL INTERNO
-   ========================================== */
-.r-1:checked ~ .slider .img-1 { opacity: 1; }
-.r-2:checked ~ .slider .img-2 { opacity: 1; }
-.r-3:checked ~ .slider .img-3 { opacity: 1; }
-
-.r-1:checked ~ .slider .nav-right .to-2, .r-1:checked ~ .slider .nav-left .to-3 { display: flex; }
-.r-2:checked ~ .slider .nav-right .to-3, .r-2:checked ~ .slider .nav-left .to-1 { display: flex; }
-.r-3:checked ~ .slider .nav-right .to-1, .r-3:checked ~ .slider .nav-left .to-2 { display: flex; }
-
-/* ==========================================
-   BARRA DE NAVEGACIÓN (MENÚ BLANCO)
-   ========================================== */
-nav.navbar,
-.bg-body-tertiary {
-  background-color: #ffffff !important;
-  border-bottom: 3px solid #CE1141;
-  padding: 12px 20px;
-}
-
-.navbar .navbar-brand,
-.navbar .nav-link {
-  color: #111111 !important;
-  font-weight: 800;
-  font-size: 1.05rem;
-  transition: color 0.2s ease;
-}
-
-.navbar .nav-link:hover, .navbar .nav-link.active {
-  color: #CE1141 !important;
-}
-
-.navbar img {
-  height: 55px !important;
-  width: auto !important;
-  object-fit: contain;
-}
-
-.navbar-collapse { flex-grow: 0; }
-
-.navbar-nav {
-  display: flex;
-  flex-direction: row;
-  gap: 15px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
 }
 
 /* ==========================================
@@ -403,7 +402,7 @@ nav.navbar,
 }
 
 /* ==========================================
-   ESTILOS DE LA PÁGINA DE COMPRA Y TALLAS
+   PÁGINA DE CHECKOUT Y TALLAS
    ========================================== */
 .checkout-container {
   max-width: 550px;
@@ -496,7 +495,7 @@ nav.navbar,
 .btn-back {
   display: inline-block;
   background-color: transparent;
-  color: #333333;
+  color: #ffffff;
   border: 2px solid #333333;
   padding: 10px 24px;
   border-radius: 25px;
@@ -513,26 +512,13 @@ nav.navbar,
 }
 
 /* ==========================================
-   CANVAS DE FONDO
-   ========================================== */
-#webgl-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -1;
-  pointer-events: none;
-}
-
-/* ==========================================
-   FOOTER URBANO (AJUSTADO AL BORDES FINAL)
+   FOOTER (PIE DE PÁGINA)
    ========================================== */
 .footer-sneakers {
   background-color: #0c0c0c;
   border-top: 3px solid #FF0033;
   padding-top: 50px;
-  margin-top: auto; /* EMPUJA EL FOOTER AL BORDES FINAL */
+  margin-top: auto;
   position: relative;
   z-index: 5;
   width: 100%;
@@ -676,27 +662,4 @@ nav.navbar,
   font-weight: bold;
   letter-spacing: 1px;
   margin: 0;
-}
-
-
-body {
-  background-color: #050505;
-  color: rgb(252, 249, 249);
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  overflow-x: hidden;
-  width: 100%;
-  min-height: 100vh;
-  
-  display: flex;
-  flex-direction: column;
-
-  /* ELIMINA O COMENTA ESTAS LÍNEAS EN TU CSS SI AÚN EXISTEN:
-  background-image: url('../img/logo/log4k.jpg');
-  background-size: 680px; 
-  background-position: top left;
-  background-repeat: repeat;
-  background-attachment: fixed; 
-  */
 }
