@@ -49,6 +49,15 @@
                 <input id="linkImagen" name="linkImagen" type="text" placeholder="img/re1.png o https://..." required>
                 <label for="descripcion">Descripción</label>
                 <textarea id="descripcion" name="descripcion" rows="4" maxlength="500"></textarea>
+                <div class="sizes-heading">
+                    <div>
+                        <label class="sizes-label">Tallas y stock <span>*</span></label>
+                        <p class="field-help">Define cuántas unidades hay disponibles para cada talla.</p>
+                    </div>
+                    <button id="add-size" class="button button-ghost" type="button">+ Añadir talla</button>
+                </div>
+                <div id="sizes-list" class="sizes-list" aria-live="polite"></div>
+                <p id="sizes-message" class="form-message error" role="alert"></p>
                 <button class="button button-primary" type="submit" id="submit-button">Guardar producto</button>
                 <p id="form-message" class="form-message" role="status"></p>
             </form>

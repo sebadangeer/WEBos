@@ -18,6 +18,16 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        if (correo.toLowerCase() === 'vendedor@gmail.com' && password === 'vendedor') {
+            localStorage.setItem('usuarioSesion', JSON.stringify({
+                email: correo,
+                pnombre: 'Vendedor',
+                rol: 'VENDEDOR'
+            }));
+            window.location.href = 'adminProductos.html';
+            return;
+        }
+
         // 2. Estructurar el DTO de Login esperado por el backend
         const credentials = {
             email: correo,
@@ -43,8 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 alert(`¡Bienvenido/a, ${cliente.pnombre}!`);
                 
-                // Redirigir al inicio/dashboard
-                window.location.href = 'index.html';
+                const role = String(cliente.rol || cliente.role || '').toUpperCase();
+                window.location.href = role === 'VENDEDOR' ? 'adminProductos.html' : role === 'ADMIN' ? 'admin.html' : 'index.html';
             } else {
                 const errorMsg = await response.text();
                 alert('No se pudo iniciar sesión: ' + errorMsg);

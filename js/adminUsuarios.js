@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const session = JSON.parse(localStorage.getItem('usuarioSesion') || 'null');
+    if (String(session?.rol || session?.role || '').toUpperCase() !== 'ADMIN') { window.location.replace('adminProductos.html'); return; }
     const apiBase = 'http://localhost:8080/api/clientes';
     const form = document.getElementById('user-form');
     const tableBody = document.getElementById('users-table-body');

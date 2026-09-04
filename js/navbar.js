@@ -1,4 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const session = JSON.parse(localStorage.getItem('usuarioSesion') || 'null');
+    const role = String(session?.rol || session?.role || '').toUpperCase();
+    const currentPage = window.location.pathname.split('/').pop().toLowerCase() || 'portada.html';
+    const adminPages = ['admin.html', 'adminproductos.html', 'adminusuarios.html'];
+    const isAdminPage = adminPages.includes(currentPage);
+
+    if (isAdminPage && role !== 'ADMIN' && !(role === 'VENDEDOR' && currentPage === 'adminproductos.html')) {
+        window.location.replace(role === 'VENDEDOR' ? 'adminProductos.html' : 'acceso.html');
+        return;
+    }
+
     document.querySelectorAll('body > nav, body > .top-navbar, body > .nav-container').forEach(element => element.remove());
     const isAdminNavbar = document.body.dataset.navbar === 'admin';
 
@@ -13,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </button>
                 <div id="site-navbar-menu" class="site-navbar-menu">
                     ${isAdminNavbar ? `
-                        <a href="adminUsuarios.html">Gestionar clientes</a>
+                        ${role === 'ADMIN' ? '<a href="adminUsuarios.html">Gestionar clientes</a>' : ''}
                         <a href="adminProductos.html">Gestionar productos</a>
                         <a href="index.html" id="logout-btn">Cerrar sesión</a>
                     ` : `
@@ -45,7 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const currentPage = window.location.pathname.split('/').pop().toLowerCase() || 'portada.html';
     const activePage = currentPage === 'carrito.html'
         ? 'carrito.html'
         : currentPage === 'blogs.html'
@@ -97,7 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = isAdminNavbar ? 'index.html' : window.location.href;
     });
 
-    const session = JSON.parse(localStorage.getItem('usuarioSesion') || 'null');
     if (session?.id) {
         fetch(`http://localhost:8080/api/clientes/${session.id}/carrito`)
             .then(response => response.ok ? response.json() : null)
