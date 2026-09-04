@@ -5,7 +5,7 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* FONDO DIVIDIDO EN DIAGONAL (ESTILO GENERAL DEL SITIO) */
+/* FONDO DIVIDIDO EN DIAGONAL */
 body {
     background: linear-gradient(135deg, #000000 0%, #000000 50%, #FF0033 50%, #FF0033 100%);
     background-attachment: fixed;
@@ -27,11 +27,23 @@ body {
     z-index: 100;
 }
 
+/* LOGO NAVBAR ARRIBA A LA IZQUIERDA */
 .nav-brand {
-    color: #ffffff;
-    font-weight: bold;
-    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
     text-decoration: none;
+}
+
+.nav-brand-logo,
+.nav-brand img {
+    height: 40px !important;
+    width: auto !important;
+    max-height: 40px !important;
+    border-radius: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    object-fit: contain !important;
+    filter: brightness(0) invert(1) !important;
 }
 
 .nav-links {
@@ -72,26 +84,31 @@ body {
     padding: 40px 15px;
 }
 
-/* LOGO Y NOMBRE */
+/* ENCABEZADO Y LOGO PRINCIPAL */
 .brand-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     margin-bottom: 25px;
 }
 
 .brand-logo-box {
-    width: 140px;
-    height: 70px;
-    border: 2px solid #ffffff;
-    margin: 0 auto 14px auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent;
+    width: 100%;
+    max-width: 140px;
+    margin: 0 auto 15px auto;
+    display: block;
+    background: transparent;
+    border: none;
 }
 
-.brand-logo-box svg {
+.brand-logo-img {
     width: 100%;
-    height: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
 }
 
 .brand-name {
@@ -99,6 +116,7 @@ body {
     font-size: 1.6rem;
     font-weight: 700;
     letter-spacing: 0.5px;
+    margin: 0;
 }
 
 /* TARJETA DE CONTENIDO */
@@ -164,10 +182,26 @@ body {
     border-color: #555555;
 }
 
+/* RESPONSIVO */
 @media (max-width: 768px) {
     .top-navbar {
         flex-direction: column;
         gap: 10px;
         padding: 15px;
     }
+
+    .brand-logo-box {
+        max-width: 110px;
+    }
+}
+
+
+/* Espaciado entre tarjetas */
+.custom-card {
+    margin-bottom: 30px; /* Separa las tarjetas verticalmente */
+}
+
+/* Opcional: También puedes añadir gap al wrapper */
+.main-wrapper {
+    gap: 30px;
 }
