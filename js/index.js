@@ -1,11 +1,10 @@
 const cards = document.querySelectorAll('.brand-card');
 const body = document.getElementById('page-body');
-const defaultBackground = "url('img/logo/log4k.jpg')";
 
 if (body) {
-    body.style.backgroundImage = defaultBackground;
-    body.style.backgroundSize = '680px';
-    body.style.backgroundRepeat = 'repeat';
+    // Aseguramos que el fondo por defecto sea un color negro plano
+    body.style.backgroundImage = 'none';
+    body.style.backgroundColor = '#050505';
 
     cards.forEach(card => {
         card.addEventListener('mouseenter', () => {
@@ -15,10 +14,11 @@ if (body) {
             body.style.backgroundSize = '280px';
             body.style.backgroundRepeat = 'repeat';
         });
+
         card.addEventListener('mouseleave', () => {
-            body.style.backgroundImage = defaultBackground;
-            body.style.backgroundSize = '280px';
-            body.style.backgroundRepeat = 'repeat';
+            // Al quitar el mouse, vuelve a ser negro plano en vez de cargar la imagen previa
+            body.style.backgroundImage = 'none';
+            body.style.backgroundColor = '#050505';
         });
     });
 }

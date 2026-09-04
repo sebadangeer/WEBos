@@ -3,6 +3,18 @@
    ========================================== */
 
 /* Variables locales para mantener la paleta Bulls */
+
+/* Agrega esto al principio de css/blogs.css */
+/* Agrega esto al inicio de css/blogs.css */
+body {
+    background: linear-gradient(135deg, #000000 0%, #000000 50%, #FF0033 50%, #FF0033 100%) !important;
+    background-image: linear-gradient(135deg, #000000 0%, #000000 50%, #FF0033 50%, #FF0033 100%) !important;
+    background-attachment: fixed !important;
+    min-height: 100vh;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
 :root {
   --bulls-red: #FF0033;
   --dark-bg: #111111;
