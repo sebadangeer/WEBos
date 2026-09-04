@@ -26,11 +26,12 @@ body {
     z-index: 100;
 }
 
-.nav-brand {
-    color: #ffffff;
-    font-weight: bold;
-    font-size: 1.1rem;
-    text-decoration: none;
+/* LOGO DE LA BARRA DE NAVEGACIÓN */
+.nav-brand-logo {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    display: block;
 }
 
 .nav-links {
@@ -81,7 +82,7 @@ body {
     margin-bottom: 25px;
 }
 
-/* CONTENEDOR DEL LOGO */
+/* CONTENEDOR DEL LOGO CENTRAL */
 .brand-logo-box {
     width: 100%;
     max-width: 140px;
@@ -91,7 +92,7 @@ body {
     border: none;
 }
 
-/* IMAGEN DEL LOGO (BLANCO PURO Y RESPONSIVO) */
+/* IMAGEN DEL LOGO CENTRAL */
 .brand-logo-img {
     width: 100%;
     height: auto;
@@ -200,8 +201,3 @@ body {
         max-width: 110px;
     }
 }
-
-
-
-
-
