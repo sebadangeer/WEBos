@@ -5,12 +5,20 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* FONDO DIVIDIDO EN DIAGONAL */
-body {
-    background: linear-gradient(135deg, #000000 0%, #000000 50%, #FF0033 50%, #FF0033 100%);
-    background-attachment: fixed;
+/* FONDO DIVIDIDO EN DIAGONAL (FORZADO) */
+html, body {
+    background: linear-gradient(135deg, #000000 0%, #000000 50%, #FF0033 50%, #FF0033 100%) !important;
+    background-attachment: fixed !important;
+    background-size: cover !important;
     min-height: 100vh;
     color: #ffffff;
+}
+
+/* DESACTIVAR CANVAS Y CAPAS SOBREPUESTAS DE OTROS CSS */
+#webgl-canvas, 
+canvas, 
+.bg-overlay {
+    display: none !important;
 }
 
 /* BARRA DE NAVEGACIÓN SUPERIOR */
@@ -82,6 +90,7 @@ body {
     justify-content: center;
     align-items: center;
     padding: 40px 15px;
+    gap: 30px;
 }
 
 /* ENCABEZADO Y LOGO PRINCIPAL */
@@ -128,6 +137,7 @@ body {
     border-radius: 16px;
     padding: 35px 30px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+    margin-bottom: 30px;
 }
 
 .form-title {
@@ -193,15 +203,4 @@ body {
     .brand-logo-box {
         max-width: 110px;
     }
-}
-
-
-/* Espaciado entre tarjetas */
-.custom-card {
-    margin-bottom: 30px; /* Separa las tarjetas verticalmente */
-}
-
-/* Opcional: También puedes añadir gap al wrapper */
-.main-wrapper {
-    gap: 30px;
 }
