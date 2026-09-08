@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Obtiene la cantidad de productos del carrito y la muestra en el navbar.
     if (session?.id) {
-        fetch(`http://localhost:8080/api/clientes/${session.id}/carrito`)
+        fetch(`https://sneakersource.onrender.com/api/clientes/${session.id}/carrito`)
             .then(response => response.ok ? response.json() : null)
             .then(cart => {
                 const count = (cart?.items || []).reduce((total, item) => total + Number(item.cantidad || 0), 0);

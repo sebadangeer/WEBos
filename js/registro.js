@@ -139,7 +139,7 @@
 
             try {
                 // Se envia la información al servidor mediante una petición POST.
-                const response = await fetch('http://localhost:8080/api/clientes', {
+                const response = await fetch('https://sneakersource.onrender.com/api/clientes', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

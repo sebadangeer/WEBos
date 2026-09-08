@@ -100,7 +100,7 @@ Webos-1/
 ## Requisitos previos
 
 - Navegador moderno con soporte para HTML5, CSS3, JavaScript y `localStorage`.
-- Backend de la aplicacion ejecutandose en `http://localhost:8080`.
+- Backend de la aplicacion ejecutandose en `https://sneakersource.onrender.com/`.
 - API disponible y configurada con los endpoints esperados.
 - Conexion a Internet para cargar Bootstrap desde CDN y cualquier recurso externo.
 
@@ -119,17 +119,17 @@ Tambien es posible abrir las paginas HTML directamente en el navegador para revi
 El frontend realiza solicitudes a rutas como las siguientes:
 
 ```text
-GET    http://localhost:8080/api/productos
-GET    http://localhost:8080/api/productos/categoria/{categoria}
-GET    http://localhost:8080/api/clientes
-POST   http://localhost:8080/api/clientes
-PUT    http://localhost:8080/api/clientes/{id}
-DELETE http://localhost:8080/api/clientes/{id}
-GET    http://localhost:8080/api/clientes/{id}/carrito
-POST   http://localhost:8080/api/clientes/{id}/carrito/items
-PUT    http://localhost:8080/api/clientes/{id}/carrito/items/{productoId}
-DELETE http://localhost:8080/api/clientes/{id}/carrito/items/{productoId}
-POST   http://localhost:8080/api/clientes/{id}/boletas
+GET    https://sneakersource.onrender.com/api/productos
+GET    https://sneakersource.onrender.com/api/productos/categoria/{categoria}
+GET    https://sneakersource.onrender.com/api/clientes
+POST   https://sneakersource.onrender.com/api/clientes
+PUT    https://sneakersource.onrender.com/api/clientes/{id}
+DELETE https://sneakersource.onrender.com/api/clientes/{id}
+GET    https://sneakersource.onrender.com/api/clientes/{id}/carrito
+POST   https://sneakersource.onrender.com/api/clientes/{id}/carrito/items
+PUT    https://sneakersource.onrender.com/api/clientes/{id}/carrito/items/{productoId}
+DELETE https://sneakersource.onrender.com/api/clientes/{id}/carrito/items/{productoId}
+POST   https://sneakersource.onrender.com/api/clientes/{id}/boletas
 ```
 
 Las rutas y los nombres de los campos deben coincidir con los contratos definidos por el backend. Si el servidor no esta disponible, el catalogo, el carrito y los paneles administrativos mostraran mensajes de error o no podran cargar informacion.
@@ -175,7 +175,7 @@ Los estilos principales se encuentran en:
 
 ## Estado del proyecto
 
-El frontend contiene las vistas y la logica de interaccion descritas en este documento. El funcionamiento completo de catalogos, usuarios, carrito, boletas y administracion depende de que exista un backend compatible en `http://localhost:8080`.
+El frontend contiene las vistas y la logica de interaccion descritas en este documento. El funcionamiento completo de catalogos, usuarios, carrito, boletas y administracion depende de que exista un backend compatible en `https://sneakersource.onrender.com/`.
 
 La integracion con una pasarela bancaria o el procesamiento real de tarjetas no se considera confirmado solo por la existencia de una pagina de pago; debe verificarse con el backend y el entorno de pruebas correspondiente.
 

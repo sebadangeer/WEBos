@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (role !== 'ADMIN' && role !== 'VENDEDOR') { window.location.replace('acceso.html'); return; }
 
     // Dirección base del backend para productos.
-    const apiBase = 'http://localhost:8080/api/productos';
+    const apiBase = 'https://sneakersource.onrender.com/api/productos';
 
     // Elementos del formulario y tabla de productos.
     const form = document.getElementById('product-form');

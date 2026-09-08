@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Consulta la API para buscar el producto por su ID.
-    fetch('http://localhost:8080/api/productos')
+    fetch('https://sneakersource.onrender.com/api/productos')
         .then(response => {
             if (!response.ok) throw new Error('Producto no encontrado');
             return response.json();

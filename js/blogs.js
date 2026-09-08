@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', cargarBlogs);
 // Trae los artículos desde la API de blogs y los renderiza en la vista.
 async function cargarBlogs() {
     try {
-        const response = await fetch('http://localhost:8080/api/blogs');
+        const response = await fetch('https://sneakersource.onrender.com/api/blogs');
         if (!response.ok) throw new Error('Error en la respuesta');
 
         const blogs = await response.json();

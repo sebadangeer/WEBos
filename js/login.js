@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // 3. Petición POST al endpoint de login.
-            const response = await fetch('http://localhost:8080/api/clientes/login', {
+            const response = await fetch('https://sneakersource.onrender.com/api/clientes/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

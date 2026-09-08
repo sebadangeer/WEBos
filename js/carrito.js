@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const content = document.getElementById('cart-content');
     const session = JSON.parse(localStorage.getItem('usuarioSesion') || 'null');
     const customerId = session?.id;
-    const apiBase = customerId ? `http://localhost:8080/api/clientes/${customerId}/carrito` : null;
+    const apiBase = customerId ? `https://sneakersource.onrender.com/api/clientes/${customerId}/carrito` : null;
 
     // Si no hay sesión, se bloquea la vista del carrito.
     if (!customerId) {
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const address = getAddress();
 
         try {
-            const response = await fetch(`http://localhost:8080/api/clientes/${customerId}/boletas`, {
+            const response = await fetch(`https://sneakersource.onrender.com/api/clientes/${customerId}/boletas`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const getCart = async () => {
         const [cartResponse, productsResponse] = await Promise.all([
             fetch(apiBase),
-            fetch('http://localhost:8080/api/productos')
+            fetch('https://sneakersource.onrender.com/api/productos')
         ]);
         if (!cartResponse.ok) throw new Error('No se pudo cargar el carrito.');
         const cart = await cartResponse.json();

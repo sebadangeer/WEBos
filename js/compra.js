@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Obtiene los productos desde el backend para buscar el actual y sus tallas disponibles.
-    fetch('http://localhost:8080/api/productos')
+    fetch('https://sneakersource.onrender.com/api/productos')
         .then(response => {
             if (!response.ok) throw new Error('No se pudieron cargar los productos');
             return response.json();
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 try {
-                    const response = await fetch(`http://localhost:8080/api/clientes/${customerId}/carrito/items`, {
+                    const response = await fetch(`https://sneakersource.onrender.com/api/clientes/${customerId}/carrito/items`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ productoId: Number(productId), talla: selectedSize, cantidad: quantity })

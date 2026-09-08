@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (String(session?.rol || session?.role || '').toUpperCase() !== 'ADMIN') { window.location.replace('adminProductos.html'); return; }
 
     // Base de la API para usuarios.
-    const apiBase = 'http://localhost:8080/api/clientes';
+    const apiBase = 'https://sneakersource.onrender.com/api/clientes';
 
     // Elementos de la interfaz de administración.
     const form = document.getElementById('user-form');

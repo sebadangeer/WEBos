@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Si la página es de listado general, consulta todos los productos; si no, filtra por categoría.
     const apiUrl = path.includes('listarproductos')
-        ? 'http://localhost:8080/api/productos'
-        : `http://localhost:8080/api/productos/categoria/${category}`;
+        ? 'https://sneakersource.onrender.com/api/productos'
+        : `https://sneakersource.onrender.com/api/productos/categoria/${category}`;
 
     fetch(apiUrl)
         .then(response => {
