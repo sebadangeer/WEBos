@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('password').value;
 
         // Acceso directo para administrador y vendedor de prueba.
-        if (correo.toLowerCase() === 'admin@gmail.com' && password === 'rut') {
+        if (correo.toLowerCase() === 'admin@gmail.com' && password === 'admin') {
             const adminSession = {
                 email: correo,
                 pnombre: 'Administrador',
