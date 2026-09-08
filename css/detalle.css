@@ -227,10 +227,11 @@ body {
 .main-shoe-img {
     position: relative !important;
     z-index: 2 !important;
-    width: 90% !important; /* Deja un margen para que no toque los bordes */
-    max-width: 380px !important; /* Tope máximo de crecimiento */
+    width: min(100%, 620px) !important;
+    max-width: 620px !important;
     height: auto !important;
     margin: 0 !important;
+    display: block;
     
     /* Alineación perfecta al centro, con rotación suave */
     transform: rotate(-10deg) translate(0, 0) !important; 
@@ -242,14 +243,94 @@ body {
    RESPONSIVE (Móviles y Tablets)
    ========================================== */
 @media (max-width: 992px) {
+    .product-hero {
+        flex-direction: column;
+        align-items: center;
+        padding-top: 120px;
+    }
+
+    .product-info,
     .product-display {
-        width: 100%;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .product-info {
+        margin-bottom: 24px;
+    }
+
+    .product-display {
+        width: 100% !important;
         margin-bottom: 30px;
         padding: 30px;
     }
-    
+
     .main-shoe-img {
-        transform: rotate(0deg) !important; /* Endereza la zapatilla en móviles */
+        transform: rotate(0deg) !important;
+        width: min(85%, 460px) !important;
+        max-width: 460px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .product-display {
+        min-height: 280px;
+        padding: 20px 14px;
+    }
+
+    .main-shoe-img {
+        width: min(92%, 330px) !important;
+        max-width: 330px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .product-hero {
+        min-height: auto;
+        padding: 100px 16px 30px;
+        margin-top: 0;
+    }
+
+    .product-info {
+        padding: 24px 18px;
+    }
+
+    .product-title {
+        font-size: clamp(2.2rem, 9vw, 3rem);
+    }
+
+    .description {
+        margin-bottom: 22px;
+        font-size: 0.9rem;
+    }
+
+    .purchase-area {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        gap: 12px;
+    }
+
+    .price {
+        font-size: 1.4rem;
+        margin-bottom: 0;
+    }
+
+    .btn-buy,
+    .btn-back {
+        width: 100%;
+        text-align: center;
+        display: inline-block;
+    }
+
+    .btn-back {
+        margin-top: 0;
+    }
+
+    .product-display {
+        min-height: 260px;
+        padding: 24px 16px;
     }
 }
 

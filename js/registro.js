@@ -1,12 +1,12 @@
-        const ubicacionChile = window.ubicacionChile || { regiones: [] };
+        const ubicacionChileData = window.ubicacionChile || { regiones: [] };
 
-        const regionesData = ubicacionChile.regiones.map(region => ({
+        const regionesData = ubicacionChileData.regiones.map(region => ({
             id: region.id,
             nombre: region.nombre
         }));
 
         const comunasPorRegion = Object.fromEntries(
-            ubicacionChile.regiones.map(region => [region.id, region.comunas])
+            ubicacionChileData.regiones.map(region => [region.id, region.comunas])
         );
 
         // Referencias a los elementos del formulario y de los menús desplegables.

@@ -27,7 +27,7 @@ async function cargarBlogs() {
                         <span class="news-meta">POST #${blog.id_posteo} &nbsp;•&nbsp; 5 MIN READ</span>
                         <h2 class="news-title">${blog.nombre_post}</h2>
                         <p class="news-excerpt">${blog.descripcion_post}</p>
-                        <button class="news-btn" onclick="verPost(${blog.id_posteo})">LEER ARTÍCULO <span class="arrow">→</span></button>
+                        <button class="news-btn" onclick="window.location.href='detalleblog.html?id=${blog.id_posteo}'">LEER ARTÍCULO <span class="arrow">→</span></button>
                     </div>
                 </article>`;
         });
@@ -37,7 +37,3 @@ async function cargarBlogs() {
     }
 }
 
-// Simula la apertura de un artículo. Más adelante podría redirigir a una vista completa.
-function verPost(id) {
-    alert('Accediendo al artículo de fondo. ID: ' + id);
-}

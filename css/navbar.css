@@ -105,32 +105,39 @@
 @media (max-width: 900px) {
     .site-navbar-inner {
         padding: 12px 20px;
+        flex-wrap: wrap;
+    }
+
+    .site-navbar-brand {
+        flex: 1;
     }
 
     .site-navbar-toggle {
         display: block;
+        margin-left: auto;
     }
 
     .site-navbar-menu {
         display: none;
         width: 100%;
-        padding: 16px 0;
+        padding: 8px 0 12px;
         align-items: stretch;
         flex-direction: column;
-        gap: 16px;
+        gap: 14px;
+        order: 3;
     }
 
     .site-navbar-menu.is-open {
         display: flex;
     }
 
-    .site-navbar-inner {
-        flex-wrap: wrap;
-    }
-
     .site-navbar-menu a,
     .site-navbar-account button {
+        width: 100%;
+        text-align: left;
         white-space: normal;
+        display: block;
+        padding: 6px 0;
     }
 
     .site-navbar-cart {
@@ -167,7 +174,7 @@
 
     .site-navbar-menu a,
     .site-navbar-account button {
-        font-size: 0.75rem;
+        font-size: 0.72rem;
         letter-spacing: 0.8px;
     }
 }
