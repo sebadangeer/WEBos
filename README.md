@@ -1,8 +1,16 @@
 IMPORTANTE!!
+Credenciales de gestion de usuarios y productos (default)
+Correo = admin@gmail.com
+contraseña = admin
+
+Credenciales de gestion de productos (default)
+Correo = vendedor@gmail.com
+contraseña = vendedor
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 LINK DEL MICROSERVICIO (NECESARIO PARA EL MANEJO DE DATOS DE LA PAGINA WEB)
 https://drive.google.com/file/d/1tqArJWbIQ91HmXkAjpZDZbVoHbB1RSAQ/view
-
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
