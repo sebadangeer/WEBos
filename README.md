@@ -1,3 +1,11 @@
+IMPORTANTE!!
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+LINK DEL MICROSERVICIO (NECESARIO PARA EL MANEJO DE DATOS DE LA PAGINA WEB)
+https://drive.google.com/file/d/1tqArJWbIQ91HmXkAjpZDZbVoHbB1RSAQ/view
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 # Facture Sneakers
 
 Aplicacion web de comercio electronico para consultar y comprar zapatillas deportivas y urbanas. El proyecto ofrece catalogos de Nike Urban, Nike Sports y Jordan, registro e inicio de sesion, carrito de compras y paneles administrativos para gestionar productos y usuarios.
