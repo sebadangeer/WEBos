@@ -72,8 +72,8 @@ Webos-1/
 
 | Pagina | Descripcion |
 |---|---|
-| `index.html` | Seleccion inicial de marcas y categorias. |
-| `portada.html` | Portada de la tienda. |
+| `index.html` | Portada de la tienda. |
+| `categoria.html` | Seleccion inicial de marcas y categorias. |
 | `catJordan.html` | Catalogo Jordan. |
 | `catNikeSports.html` | Catalogo Nike Sports. |
 | `catNikeUrban.html` | Catalogo Nike Urban. |
@@ -117,7 +117,7 @@ Webos-1/
 1. Clona o descarga el proyecto.
 2. Inicia el backend en el puerto `8080`.
 3. Abre el proyecto mediante un servidor local de archivos estaticos. Por ejemplo, usando la extension Live Server de VS Code.
-4. Abre `portada.html` o `index.html` desde el servidor local.
+4. Abre `index.html` desde el servidor local.
 5. Para probar el carrito y la administracion, inicia sesion con un usuario existente en el backend.
 
 Tambien es posible abrir las paginas HTML directamente en el navegador para revisar la interfaz, pero las funciones que consultan la API requieren que el backend este activo y pueden verse limitadas por las politicas del navegador para archivos locales.

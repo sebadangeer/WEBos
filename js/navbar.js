@@ -3,7 +3,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const session = JSON.parse(localStorage.getItem('usuarioSesion') || 'null');
     const role = String(session?.rol || session?.role || '').toUpperCase();
-    const currentPage = window.location.pathname.split('/').pop().toLowerCase() || 'portada.html';
+    const currentPage = window.location.pathname.split('/').pop().toLowerCase() || 'index.html';
     const adminPages = ['admin.html', 'adminproductos.html', 'adminusuarios.html'];
     const isAdminPage = adminPages.includes(currentPage);
 
@@ -30,10 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     ${isAdminNavbar ? `
                         ${role === 'ADMIN' ? '<a href="adminUsuarios.html">Gestionar clientes</a>' : ''}
                         <a href="adminProductos.html">Gestionar productos</a>
-                        <a href="index.html" id="logout-btn">Cerrar sesión</a>
+                        <a href="categoria.html" id="logout-btn">Cerrar sesión</a>
                     ` : `
-                        <a href="portada.html">Inicio</a>
-                        <a href="index.html">Productos</a>
+                        <a href="index.html">Inicio</a>
+                        <a href="categoria.html">Productos</a>
                         <a href="nosotros.html">Nosotros</a>
                         <a href="blogs.html">Blogs</a>
                         <a href="contacto.html">Contacto</a>
@@ -73,9 +73,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     ? 'acceso.html'
                     : ['compra.html', 'carrito.html', 'comprartarjeta.html'].includes(currentPage)
                         ? 'compra.html'
-                        : ['index.html', 'listarproductos.html', 'detalle.html', 'catjordan.html', 'catnikesports.html', 'catnikeurban.html', 'jordan.html', 'nike.html', 'nike.sports.html'].includes(currentPage)
-                            ? 'index.html'
-                            : 'portada.html';
+                        : ['categoria.html', 'listarproductos.html', 'detalle.html', 'catjordan.html', 'catnikesports.html', 'catnikeurban.html', 'jordan.html', 'nike.html', 'nike.sports.html'].includes(currentPage)
+                            ? 'categoria.html'
+                            : 'index.html';
 
     document.querySelectorAll('#site-navbar-menu > a').forEach(link => {
         if (link.getAttribute('href') === activePage) {
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         localStorage.removeItem('usuarioActivo');
         localStorage.removeItem('usuarioSesion');
-        window.location.href = isAdminNavbar ? 'index.html' : window.location.href;
+        window.location.href = isAdminNavbar ? 'categoria.html' : window.location.href;
     });
 
     // Obtiene la cantidad de productos del carrito y la muestra en el navbar.

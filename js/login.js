@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert(`¡Bienvenido/a, ${getDisplayName(cliente)}!`);
 
                 const role = String(cliente.rol || cliente.role || '').toUpperCase();
-                window.location.href = role === 'VENDEDOR' ? 'adminProductos.html' : role === 'ADMIN' ? 'admin.html' : 'index.html';
+                window.location.href = role === 'VENDEDOR' ? 'adminProductos.html' : role === 'ADMIN' ? 'admin.html' : 'categoria.html';
             } else {
                 const errorMsg = await response.text();
                 alert('No se pudo iniciar sesión: ' + errorMsg);
