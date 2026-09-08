@@ -1,3 +1,4 @@
+// Este archivo carga la información de un producto concreto y la muestra en detalle.
 document.addEventListener('DOMContentLoaded', () => {
     const productId = new URLSearchParams(window.location.search).get('id');
     const title = document.getElementById('product-title');
@@ -7,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const image = document.getElementById('product-image');
     const buyButton = document.getElementById('buy-button');
 
+    // Si no llega un ID, indica que no hay producto seleccionado.
     if (!productId) {
         title.textContent = 'Producto no seleccionado';
         description.textContent = 'Regresa a la lista y selecciona un producto para ver sus detalles.';
@@ -14,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    // Consulta la API para buscar el producto por su ID.
     fetch('http://localhost:8080/api/productos')
         .then(response => {
             if (!response.ok) throw new Error('Producto no encontrado');
@@ -22,6 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(products => {
             const product = products.find(item => String(item.id) === String(productId));
             if (!product) throw new Error('Producto no encontrado');
+
+            // Completa los elementos con los datos reales del producto.
             document.title = `${product.nombreModelo} - Detalles`;
             brand.textContent = product.tipoCategoria || 'Jordan';
             title.textContent = product.nombreModelo;
@@ -38,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
             buyButton.classList.add('d-none');
         });
 
+    // Efecto visual al mover el cursor sobre la vista del producto.
     const display = document.querySelector('.product-display');
     const shoeImage = document.querySelector('.main-shoe-img');
     const svgLines = document.querySelector('.abstract-lines');

@@ -1,3 +1,5 @@
+// Este archivo gestiona la compra de un producto seleccionado.
+// Carga sus tallas disponibles y agrega la cantidad elegida al carrito del cliente.
 document.addEventListener('DOMContentLoaded', () => {
     const productId = new URLSearchParams(window.location.search).get('id');
     const sizePicker = document.getElementById('size-picker');
@@ -16,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    // Obtiene los productos desde el backend para buscar el actual y sus tallas disponibles.
     fetch('http://localhost:8080/api/productos')
         .then(response => {
             if (!response.ok) throw new Error('No se pudieron cargar los productos');
@@ -36,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.title = `Comprar ${product.nombreModelo}`;
             sizePicker.replaceChildren();
 
+            // Crea los radios de talla para cada opción disponible.
             sizes.forEach(([size, stock], index) => {
                 const input = document.createElement('input');
                 const inputId = `size-${String(size).replace('.', '-')}`;
@@ -53,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 sizePicker.append(input, label);
             });
 
+            // Cuando se envía el formulario, valida la cantidad y agrega el producto al carrito.
             orderForm?.addEventListener('submit', async event => {
                 event.preventDefault();
 

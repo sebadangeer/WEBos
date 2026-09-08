@@ -1,3 +1,8 @@
+/*
+  portada.css
+  Estilo de la portada principal.
+  Define el fondo animado, contenido central, texto destacado y botones de acción.
+*/
 * {
   box-sizing: border-box;
   margin: 0;

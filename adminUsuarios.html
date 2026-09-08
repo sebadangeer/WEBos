@@ -39,13 +39,23 @@
                         <label for="numero">Teléfono</label>
                         <input id="numero" type="tel" maxlength="30">
                     </div>
+                </div>
+                <label for="direccion">Dirección</label>
+                <input id="direccion" type="text" maxlength="200">
+                <div class="form-row location-row">
                     <div>
                         <label for="region">Región</label>
-                        <input id="region" type="text" maxlength="80">
+                        <select id="region" class="location-select" required>
+                            <option value="">Seleccione una región</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="comuna">Comuna</label>
+                        <select id="comuna" class="location-select" required disabled>
+                            <option value="">Seleccione primero una región</option>
+                        </select>
                     </div>
                 </div>
-                <label for="comuna">Comuna</label>
-                <input id="comuna" type="text" maxlength="80">
                 <button class="button button-primary" type="submit" id="user-submit-button">Guardar usuario</button>
                 <p id="user-form-message" class="form-message" role="status"></p>
             </form>
@@ -68,6 +78,7 @@
             </section>
         </section>
     </main>
+    <script src="js/ubicacionChile.js"></script>
     <script src="js/adminUsuarios.js"></script>
     <script src="js/navbar.js"></script>
 </body>

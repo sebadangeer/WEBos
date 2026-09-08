@@ -1,3 +1,5 @@
+// Este archivo crea y configura la barra de navegación del sitio.
+// Ajusta los enlaces según el rol del usuario y la página en la que está.
 document.addEventListener('DOMContentLoaded', () => {
     const session = JSON.parse(localStorage.getItem('usuarioSesion') || 'null');
     const role = String(session?.rol || session?.role || '').toUpperCase();
@@ -5,11 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const adminPages = ['admin.html', 'adminproductos.html', 'adminusuarios.html'];
     const isAdminPage = adminPages.includes(currentPage);
 
+    // Si intenta entrar a una página de administración sin permisos, se redirige.
     if (isAdminPage && role !== 'ADMIN' && !(role === 'VENDEDOR' && currentPage === 'adminproductos.html')) {
         window.location.replace(role === 'VENDEDOR' ? 'adminProductos.html' : 'acceso.html');
         return;
     }
 
+    // Elimina navs duplicados y genera uno según el tipo de vista.
     document.querySelectorAll('body > nav, body > .top-navbar, body > .nav-container').forEach(element => element.remove());
     const isAdminNavbar = document.body.dataset.navbar === 'admin';
 
@@ -17,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <nav id="site-navbar" class="site-navbar">
             <div class="site-navbar-inner">
                 <a class="site-navbar-brand" href="index.html">
-                    <img src="img/logo/logoo.png" alt="Facture Sneakers">
+                    <img src="img/logo/logoFinal.jpg" alt="Facture Sneakers">
                 </a>
                 <button class="site-navbar-toggle" type="button" aria-controls="site-navbar-menu" aria-expanded="false" aria-label="Abrir menú">
                     <span></span><span></span><span></span>
@@ -41,13 +45,14 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <a href="#" id="logout-btn">Cerrar Sesión</a>
                             </div>
                         </div>
-                        <a class="site-navbar-cart" href="carrito.html">Cart (<span id="cart-count">0</span>)</a>
+                        <a class="site-navbar-cart" href="carrito.html">Carrito (<span id="cart-count">0</span>)</a>
                     `}
                 </div>
             </div>
         </nav>
     `);
 
+    // Marca la opción activa en el menú según la página corriente.
     if (isAdminNavbar) {
         const adminPage = window.location.pathname.split('/').pop().toLowerCase();
         document.querySelectorAll('#site-navbar-menu > a').forEach(link => {
@@ -79,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Abre y cierra el menú móvil.
     const toggle = document.querySelector('.site-navbar-toggle');
     const menu = document.getElementById('site-navbar-menu');
     toggle?.addEventListener('click', () => {
@@ -87,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
         menu.classList.toggle('is-open', !expanded);
     });
 
+    // Muestra u oculta las opciones de cuenta del usuario.
     const accountToggle = document.getElementById('account-toggle');
     accountToggle?.addEventListener('click', () => {
         const account = document.getElementById('nav-user-dropdown');
@@ -94,12 +101,14 @@ document.addEventListener('DOMContentLoaded', () => {
         accountToggle.setAttribute('aria-expanded', String(account.classList.contains('is-open')));
     });
 
-    const usuarioActivo = localStorage.getItem('usuarioActivo');
-    if (usuarioActivo) {
+    // Si hay usuario activo, muestra el estado de sesión.
+    const hasActiveSession = Boolean(session);
+    if (hasActiveSession) {
         document.getElementById('nav-login-item')?.classList.add('d-none');
         document.getElementById('nav-user-dropdown')?.classList.remove('d-none');
     }
 
+    // Cierra sesión y redirige según el contexto.
     document.getElementById('logout-btn')?.addEventListener('click', event => {
         event.preventDefault();
         localStorage.removeItem('usuarioActivo');
@@ -107,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = isAdminNavbar ? 'index.html' : window.location.href;
     });
 
+    // Obtiene la cantidad de productos del carrito y la muestra en el navbar.
     if (session?.id) {
         fetch(`http://localhost:8080/api/clientes/${session.id}/carrito`)
             .then(response => response.ok ? response.json() : null)

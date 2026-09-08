@@ -1,41 +1,51 @@
+// Este archivo maneja el inicio de sesión del usuario.
+// Valida credenciales y guarda la sesión en localStorage para usarla en otras páginas.
 document.addEventListener('DOMContentLoaded', () => {
     const formLogin = document.getElementById('form-login');
+
+    // Obtiene un nombre visible aunque el backend use un campo distinto.
+    function getDisplayName(user) {
+        return user?.nombreCompleto || user?.pnombre || user?.nombre || user?.email?.split('@')[0] || 'cliente';
+    }
 
     formLogin.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // 1. Obtener los valores de los inputs
+        // 1. Obtener los valores de los inputs.
         const correo = document.getElementById('correo').value.trim();
         const password = document.getElementById('password').value;
 
+        // Acceso directo para administrador y vendedor de prueba.
         if (correo.toLowerCase() === 'admin@gmail.com' && password === 'rut') {
-            localStorage.setItem('usuarioSesion', JSON.stringify({
+            const adminSession = {
                 email: correo,
                 pnombre: 'Administrador',
                 rol: 'ADMIN'
-            }));
+            };
+            localStorage.setItem('usuarioSesion', JSON.stringify(adminSession));
             window.location.href = 'admin.html';
             return;
         }
 
         if (correo.toLowerCase() === 'vendedor@gmail.com' && password === 'vendedor') {
-            localStorage.setItem('usuarioSesion', JSON.stringify({
+            const sellerSession = {
                 email: correo,
                 pnombre: 'Vendedor',
                 rol: 'VENDEDOR'
-            }));
+            };
+            localStorage.setItem('usuarioSesion', JSON.stringify(sellerSession));
             window.location.href = 'adminProductos.html';
             return;
         }
 
-        // 2. Estructurar el DTO de Login esperado por el backend
+        // 2. Estructura del login que espera el backend.
         const credentials = {
             email: correo,
             contrasena: password
         };
 
         try {
-            // 3. Petición POST al endpoint de login
+            // 3. Petición POST al endpoint de login.
             const response = await fetch('http://localhost:8080/api/clientes/login', {
                 method: 'POST',
                 headers: {
@@ -44,15 +54,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify(credentials)
             });
 
-            // 4. Procesar la respuesta
+            // 4. Procesa la respuesta del backend.
             if (response.ok) {
                 const cliente = await response.json();
-                
-                // Guardar la sesión en localStorage
                 localStorage.setItem('usuarioSesion', JSON.stringify(cliente));
 
-                alert(`¡Bienvenido/a, ${cliente.pnombre}!`);
-                
+                alert(`¡Bienvenido/a, ${getDisplayName(cliente)}!`);
+
                 const role = String(cliente.rol || cliente.role || '').toUpperCase();
                 window.location.href = role === 'VENDEDOR' ? 'adminProductos.html' : role === 'ADMIN' ? 'admin.html' : 'index.html';
             } else {

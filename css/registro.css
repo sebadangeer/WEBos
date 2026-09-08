@@ -1,3 +1,8 @@
+/*
+  registro.css
+  Estilo del formulario de registro.
+  Define fondo, tarjeta, campos, selectores de región/comuna y botón de envío.
+*/
 * {
     box-sizing: border-box;
     margin: 0;

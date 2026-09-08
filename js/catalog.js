@@ -1,13 +1,18 @@
+// Este archivo carga los productos según la categoría de la página actual.
+// Ejemplo: Jordan, Nike Sports o Nike Urban, y los renderiza como tarjetas.
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('productos-contenedor');
     if (!container) return;
 
+    // Determina qué tipo de productos mostrar según la URL de la página.
     const path = window.location.pathname.toLowerCase();
     const category = path.includes('catjordan')
         ? 'jordan'
         : path.includes('catnikeurban')
             ? 'urban'
             : 'sports';
+
+    // Si la página es de listado general, consulta todos los productos; si no, filtra por categoría.
     const apiUrl = path.includes('listarproductos')
         ? 'http://localhost:8080/api/productos'
         : `http://localhost:8080/api/productos/categoria/${category}`;
@@ -18,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .then(products => {
+            // Crea el HTML de cada tarjeta de producto y lo agrega al contenedor principal.
             container.innerHTML = products.map(product => {
                 const price = Number(product.precio).toLocaleString('es-CL');
                 return `

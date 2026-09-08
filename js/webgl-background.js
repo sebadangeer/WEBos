@@ -1,3 +1,5 @@
+// Este archivo crea un fondo animado con WebGL usando shaders.
+// Sirve para dar un efecto visual dinámico al fondo del sitio.
 document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById('webgl-canvas');
     const vertexSource = document.getElementById('js-vertex-shader')?.textContent;
@@ -6,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!canvas || !gl || !vertexSource || !fragmentSource) return;
 
+    // Compila los shaders del fondo visual.
     const createShader = (type, source) => {
         const shader = gl.createShader(type);
         gl.shaderSource(shader, source);
@@ -19,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gl.linkProgram(program);
     gl.useProgram(program);
 
+    // Crea el cuadrado que llena la pantalla para dibujar el shader.
     const positionBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
@@ -30,12 +34,14 @@ document.addEventListener('DOMContentLoaded', () => {
     gl.enableVertexAttribArray(position);
     gl.vertexAttribPointer(position, 3, gl.FLOAT, false, 0, 0);
 
+    // Variables del shader para resolución, tiempo y efectos visuales.
     const resolution = gl.getUniformLocation(program, 'resolution');
     const time = gl.getUniformLocation(program, 'time');
     const xScale = gl.getUniformLocation(program, 'xScale');
     const yScale = gl.getUniformLocation(program, 'yScale');
     const distortion = gl.getUniformLocation(program, 'distortion');
 
+    // Ajusta el canvas al tamaño de la ventana.
     const resize = () => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
@@ -44,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', resize);
     resize();
 
+    // Bucle de render para animar el fondo.
     const render = now => {
         gl.uniform2f(resolution, canvas.width, canvas.height);
         gl.uniform1f(time, now * 0.001);

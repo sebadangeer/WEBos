@@ -1,3 +1,8 @@
+/*
+  comprar.css
+  Estilo del checkout y del formulario de pago.
+  Define la apariencia de la tarjeta de crédito, inputs y layout de compra.
+*/
 * {
     box-sizing: border-box;
     margin: 0;

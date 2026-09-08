@@ -1,16 +1,22 @@
+// Este archivo controla la lógica del carrito de compras.
+// Muestra los productos agregados, permite modificarlos y genera una boleta final.
 document.addEventListener('DOMContentLoaded', () => {
+    // Se toma el contenido del carrito y la sesión activa del cliente.
     const content = document.getElementById('cart-content');
     const session = JSON.parse(localStorage.getItem('usuarioSesion') || 'null');
     const customerId = session?.id;
     const apiBase = customerId ? `http://localhost:8080/api/clientes/${customerId}/carrito` : null;
 
+    // Si no hay sesión, se bloquea la vista del carrito.
     if (!customerId) {
         content.innerHTML = '<p class="cart-status">Debes iniciar sesión para ver tu carrito.</p>';
         return;
     }
 
     const money = value => `$${Number(value || 0).toLocaleString('es-CL')}`;
+    const getAddress = () => [session?.direccion, session?.region, session?.comuna].filter(Boolean).join(', ') || 'Por confirmar';
 
+    // Crea la boleta y limpia el carrito después de la compra exitosa.
     const sendReceipt = async cart => {
         const email = session.email || session.correo;
         if (!email) {
@@ -18,9 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return false;
         }
 
-        const address = session.direccion || [session.region, session.comuna]
-            .filter(Boolean)
-            .join(', ') || 'Por confirmar';
+        const address = getAddress();
 
         try {
             const response = await fetch(`http://localhost:8080/api/clientes/${customerId}/boletas`, {
@@ -72,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // Obtiene el carrito del cliente y completa los datos del producto usando la API de productos.
     const getCart = async () => {
         const [cartResponse, productsResponse] = await Promise.all([
             fetch(apiBase),
@@ -103,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     };
 
+    // Actualiza la cantidad de una línea del carrito en el backend.
     const updateItem = async (item, quantity) => {
         const response = await fetch(`${apiBase}/items/${item.productoId}`, {
             method: 'PUT',
@@ -112,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!response.ok) throw new Error(await response.text() || 'No se pudo actualizar el producto.');
     };
 
+    // Elimina un producto concreto del carrito por talla.
     const deleteItem = async item => {
         const size = encodeURIComponent(item.talla);
         const response = await fetch(`${apiBase}/items/${item.productoId}?talla=${size}`, {
@@ -120,6 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!response.ok) throw new Error(await response.text() || 'No se pudo eliminar el producto.');
     };
 
+    // Dibuja el contenido HTML del carrito con productos, total y botones de acción.
     const render = cart => {
         if (!cart.items.length) {
             content.innerHTML = '<p class="empty-message">Tu carrito está vacío.</p>';
@@ -127,6 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const total = cart.items.reduce((sum, item) => sum + item.subtotal, 0);
+        const address = getAddress();
         content.innerHTML = `
             <div class="cart-layout">
                 <div class="cart-items">
@@ -153,6 +162,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 <aside class="cart-summary">
                     <h2>Resumen</h2>
                     <div class="summary-row">
+                        <span>Dirección de envío</span>
+                        <strong class="summary-address">${address}</strong>
+                    </div>
+                    <div class="summary-row">
                         <span>Total general</span>
                         <strong class="summary-total">${money(total)}</strong>
                     </div>
@@ -161,6 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </aside>
             </div>`;
 
+        // Eventos para aumentar o disminuir cantidad del producto.
         content.querySelectorAll('.quantity-control button').forEach(button => {
             button.addEventListener('click', async () => {
                 const item = cart.items[Number(button.parentElement.dataset.index)];
@@ -179,6 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
+        // Eliminar un producto individual del carrito.
         content.querySelectorAll('.remove-item').forEach(button => {
             button.addEventListener('click', async () => {
                 try {
@@ -190,6 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
+        // Vaciar todo el carrito de compras.
         document.getElementById('empty-cart').addEventListener('click', async () => {
             try {
                 const response = await fetch(apiBase, { method: 'DELETE' });
@@ -200,6 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        // Botón de pago: genera la boleta y limpia el carrito.
         document.getElementById('pay-cart').addEventListener('click', async event => {
             const button = event.currentTarget;
             button.disabled = true;
@@ -214,6 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    // Carga inicial del carrito al abrir la pantalla.
     getCart().then(render).catch(error => {
         console.error('Hubo un problema con el carrito:', error);
         content.innerHTML = `<p class="cart-status">${error.message}</p>`;
